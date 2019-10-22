@@ -16,7 +16,7 @@ class ViewPagerAdapter(private val context: Context, fragmentManager: FragmentMa
     }
 
     override fun getItem(position: Int): Fragment {
-        return if (position == 0) PopularMoviesFragment.newInstance()
+        return if (position == 0) PopularMoviesFragment()
         else FavouriteMoviesFragment()
     }
 

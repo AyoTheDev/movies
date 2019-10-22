@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         setUpView()
     }
 
-    private fun setUpView(){
-        viewpager.adapter = viewPagerAdapter
+    private fun setUpView() {
+        viewpager?.adapter = viewPagerAdapter
         tabs.setupWithViewPager(viewpager)
     }
 }
