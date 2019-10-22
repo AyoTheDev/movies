@@ -9,6 +9,12 @@ import com.ayo.movies.R
 
 class PopularMoviesFragment : Fragment() {
 
+    companion object{
+        fun newInstance(): PopularMoviesFragment {
+            return PopularMoviesFragment()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_popular_movies, container, false)
     }
