@@ -18,12 +18,7 @@ import javax.inject.Inject
 
 class PopularMoviesFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    private val viewModel by lazy { (activity as MainActivity).viewModel }
 
     private val adapter: MovieListAdapter by lazy { MovieListAdapter(movieListListener) }
 
