@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class PopularMoviesUseCase @Inject constructor(private val movieDbRepository: MovieDbRepository) {
 
-    suspend fun getFavouriteMovies() = movieDbRepository.getPopularMovies()
+    suspend fun getPopularMovies() = movieDbRepository.getPopularMovies()
 }
