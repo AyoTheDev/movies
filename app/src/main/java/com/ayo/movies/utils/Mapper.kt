@@ -6,7 +6,7 @@ import com.ayo.domain.model.MovieDomain
 import com.google.gson.Gson
 
 fun MovieApi.toDomain(): MovieDomain {
-    return MovieDomain(this.id, this.title, this.poster_path, this.overview, this.runtime.toString())
+    return MovieDomain(this.id, this.title, this.poster_path, this.overview, this.runtime)
 }
 
 fun Set<String>.toDomain(gson: Gson): List<MovieDomain> {
@@ -17,6 +17,6 @@ fun PopularMovieApi.toDomain(): List<MovieDomain> {
     return this.results.map { MovieDomain(it.id, it.title, it.poster_path, null, null) }
 }
 
-typealias MovieList = Pair<List<MovieDomain>?, List<MovieDomain>?> //(all, favourites)
-
-
+fun String.prependMovieImageUrl(): String {
+    return "https://image.tmdb.org/t/p/w500$this"
+}

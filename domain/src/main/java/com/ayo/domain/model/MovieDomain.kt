@@ -5,5 +5,5 @@ data class MovieDomain(
     val title: String,
     val imgUrl: String,
     val overview: String?,
-    val runtime: String?
+    val runtime: Int?
 )
