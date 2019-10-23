@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 import com.ayo.movies.di.ViewModelFactory
@@ -26,24 +25,25 @@ class PopularMoviesFragment : DaggerFragment() {
         ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
-    private val adapter by lazy { MovieListAdapter(movieListListener) }
+    private val adapter: MovieListAdapter by lazy { MovieListAdapter(movieListListener) }
+
+    private var detailsDialog: MovieDetailsDialogFragment? = null
 
     private val movieListListener = object : MovieListAdapter.Listener {
         override fun onClick(position: Int) {
-
+            val movieId = adapter.getItem(position).id
+            detailsDialog = MovieDetailsDialogFragment.newInstance(movieId)
+            fragmentManager?.let { fm ->
+                detailsDialog?.show(fm, MovieDetailsDialogFragment.TAG)
+            }
         }
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
-        loadData()
         observeViewModel()
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun loadData() {
-        //viewModel.loadPopularMovies()
     }
 
     private fun observeViewModel() {
