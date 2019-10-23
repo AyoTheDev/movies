@@ -4,9 +4,8 @@ import com.ayo.api.model.MovieApi
 import com.ayo.api.model.PopularMovieApi
 import com.ayo.domain.model.MovieDomain
 
-//todo
 fun MovieApi.toDomain(): MovieDomain {
-    return MovieDomain(1)
+    return MovieDomain(1, "", "")
 }
 
 fun Set<String>.toDomain(): List<MovieDomain> {
@@ -14,6 +13,6 @@ fun Set<String>.toDomain(): List<MovieDomain> {
 }
 
 fun PopularMovieApi.toDomain(): List<MovieDomain> {
-    return emptyList()
+    return this.results.map { MovieDomain(id = it.id, title = it.title, imgUrl = it.poster_path ) }
 }
 
