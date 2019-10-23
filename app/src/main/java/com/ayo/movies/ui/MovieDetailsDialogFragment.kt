@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
-import com.ayo.movies.di.ViewModelFactory
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
-import javax.inject.Inject
 
 class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
@@ -28,6 +25,11 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
             fragment.movieId = id
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loading_flipper.displayedChild = 0
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,7 +60,13 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     private fun setUpListener() {
         favourite_switch.setOnCheckedChangeListener { _, isChecked ->
             viewModel.apply {
-                if (isChecked) addMovieToFavourites(movie) else removeMovieFromFavourites(movie.id)
+                if (isChecked) {
+                    addMovieToFavourites(movie)
+                    favourite_switch.text = getString(R.string.remove_from_favourites)
+                } else {
+                    removeMovieFromFavourites(movie.id)
+                    favourite_switch.text = getString(R.string.add_to_favourites)
+                }
             }
         }
     }
@@ -78,7 +86,10 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
         title.text = movie.title
         details.text = movie.overview
-        runtime.text = movie.runtime
+        val runTimeText = "${movie.runtime} mins"
+        runtime.text = runTimeText
+
+        loading_flipper.displayedChild = 1
 
     }
 

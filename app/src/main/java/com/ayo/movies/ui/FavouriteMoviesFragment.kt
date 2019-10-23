@@ -35,7 +35,6 @@ class FavouriteMoviesFragment: DaggerFragment() {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
         viewModel.loadFavouriteMovies()
