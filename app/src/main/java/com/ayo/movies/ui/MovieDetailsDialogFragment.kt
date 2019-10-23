@@ -16,12 +16,7 @@ import javax.inject.Inject
 
 class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    private val viewModel by lazy { (activity as MainActivity).viewModel }
 
     private var movieId: Int? = null
     private lateinit var movie: MovieDomain
