@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
+import com.ayo.movies.utils.prependMovieImageUrl
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
@@ -77,10 +78,9 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     private fun handleMovieDetails(movie: MovieDomain) {
         this.movie = movie
-        val imageUrl = "https://image.tmdb.org/t/p/w500${movie.imgUrl}"
         Glide
             .with(this)
-            .load(imageUrl)
+            .load(movie.imgUrl.prependMovieImageUrl())
             .placeholder(R.drawable.ic_placeholder)
             .into(image)
 
