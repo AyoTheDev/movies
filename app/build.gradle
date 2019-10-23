@@ -33,6 +33,7 @@ dependencies {
     implementation project(':domain')
     api project(path: ':api')
 
+    implementation dependencies.gson
     implementation dependencies.kotlinCoroutinesCore
     implementation dependencies.kotlinCoroutinesAndroid
     implementation dependencies.kotlin

@@ -24,6 +24,7 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     }
 
     private var movieId: Int? = null
+    private lateinit var movie: MovieDomain
 
     companion object {
         const val TAG = "MovieDetailsDialogFragment"
@@ -40,8 +41,31 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpView()
+        setUpListener()
         loadData()
         observeViewModel()
+    }
+
+    private fun setUpView() {
+        when (viewModel.isMovieFavourite(movieId)) {
+            true -> {
+                favourite_switch.isChecked = true
+                favourite_switch.text = getString(R.string.remove_from_favourites)
+            }
+            false -> {
+                favourite_switch.isChecked = false
+                favourite_switch.text = getString(R.string.add_to_favourites)
+            }
+        }
+    }
+
+    private fun setUpListener() {
+        favourite_switch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.apply {
+                if (isChecked) addMovieToFavourites(movie) else removeMovieFromFavourites(movie.id)
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -49,7 +73,8 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     }
 
     private fun handleMovieDetails(movie: MovieDomain) {
-        val imageUrl = "https://image.tmdb.org/t/p/w500${movie?.imgUrl}"
+        this.movie = movie
+        val imageUrl = "https://image.tmdb.org/t/p/w500${movie.imgUrl}"
         Glide
             .with(this)
             .load(imageUrl)
