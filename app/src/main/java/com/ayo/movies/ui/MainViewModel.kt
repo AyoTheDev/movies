@@ -65,7 +65,6 @@ class MainViewModel @Inject constructor(
         }
     })
 
-
     fun loadPopularMovies() = load(launch {
         try {
             val data = popularMoviesUseCase.getPopularMovies()
@@ -74,6 +73,4 @@ class MainViewModel @Inject constructor(
             Timber.e(e)
         }
     })
-
-
 }

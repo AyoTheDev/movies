@@ -33,8 +33,7 @@ class PopularMoviesFragment : DaggerFragment() {
             }
         }
     }
-
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
         viewModel.loadPopularMovies()
