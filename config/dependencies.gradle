@@ -35,6 +35,7 @@ ext {
             kotlinCoroutinesCore    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}",
             kotlinCoroutinesAndroid : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesVersion}",
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
+            gson                   : "com.google.code.gson:gson:${gsonVersion}",
 
             supportRecyclerView     : "androidx.recyclerview:recyclerview:1.0.0",
             supportDesign           : "com.google.android.material:material:1.0.0-rc01",

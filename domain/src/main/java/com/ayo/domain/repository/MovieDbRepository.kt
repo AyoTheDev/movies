@@ -6,7 +6,12 @@ interface MovieDbRepository {
 
     suspend fun getMovie(id: Int): MovieDomain?
 
-    suspend fun getFavouriteMovies(): List<MovieDomain>?
+    fun getFavouriteMovies(): List<MovieDomain>?
 
     suspend fun getPopularMovies(): List<MovieDomain>?
+
+    fun addMovieToFavourites(movie: MovieDomain): List<MovieDomain>
+
+    fun removeMovieFromFavourites(id: Int): List<MovieDomain>
+
 }
