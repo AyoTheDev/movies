@@ -27,10 +27,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    def dependencies = rootProject.ext.apiDependencies
+    def dependencies = rootProject.ext.applicationDependencies
     def testDependencies = rootProject.ext.testDependencies
 
-    //implementation dependencies.appCompat
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
 
