@@ -5,7 +5,7 @@ import com.ayo.api.model.PopularMovieApi
 import com.ayo.domain.model.MovieDomain
 
 fun MovieApi.toDomain(): MovieDomain {
-    return MovieDomain(1, "", "")
+    return MovieDomain(this.id, this.title, this.poster_path, this.overview, this.runtime.toString())
 }
 
 fun Set<String>.toDomain(): List<MovieDomain> {
@@ -13,6 +13,6 @@ fun Set<String>.toDomain(): List<MovieDomain> {
 }
 
 fun PopularMovieApi.toDomain(): List<MovieDomain> {
-    return this.results.map { MovieDomain(id = it.id, title = it.title, imgUrl = it.poster_path ) }
+    return this.results.map { MovieDomain(it.id, it.title, it.poster_path, null, null) }
 }
 

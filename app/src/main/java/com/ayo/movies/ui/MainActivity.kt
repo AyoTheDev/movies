@@ -3,7 +3,6 @@ package com.ayo.movies.ui
 import android.os.Bundle
 import com.ayo.movies.R
 import com.ayo.movies.ui.adapter.ViewPagerAdapter
-import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
