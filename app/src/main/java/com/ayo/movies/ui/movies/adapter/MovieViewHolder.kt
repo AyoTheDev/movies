@@ -4,7 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.utils.ImageLoaderUtils
-import com.ayo.domain.model.prependMovieImageUrl
 import com.ayo.movies.utils.AnimationUtils.setFadeAnimation
 import kotlinx.android.synthetic.main.item_movie.view.*
 
@@ -15,7 +14,7 @@ class MovieViewHolder(itemView: View, private val listener: MovieListAdapter.Lis
 
     fun bind(movie: MovieDomain){
         itemView.apply {
-            ImageLoaderUtils.loadImage(context, movie.imgUrl.prependMovieImageUrl(), image)
+            ImageLoaderUtils.loadImage(context, movie.imgUrl, image)
             setOnClickListener(this@MovieViewHolder)
             title.text = movie.title
             setFadeAnimation(this, ANIMATION_DURATION)

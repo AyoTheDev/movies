@@ -10,7 +10,6 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.utils.ImageLoaderUtils
-import com.ayo.domain.model.prependMovieImageUrl
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 
@@ -84,7 +83,7 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     private fun handleMovieDetails(movie: MovieDomain) {
         this.movie = movie
-        ImageLoaderUtils.loadImage(context, movie.imgUrl.prependMovieImageUrl(), image)
+        ImageLoaderUtils.loadImage(context, movie.imgUrl, image)
         title.text = movie.title
         details.text = movie.overview
         val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
