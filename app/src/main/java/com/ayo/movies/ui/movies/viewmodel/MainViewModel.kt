@@ -5,12 +5,10 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
-import dagger.Module
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@Module
 class MainViewModel @Inject constructor(
     coroutineContextProvider: CoroutineContextProvider,
     private val favouriteMoviesUseCase: FavouriteMoviesUseCase,

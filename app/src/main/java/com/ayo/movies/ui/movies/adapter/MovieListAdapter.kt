@@ -7,18 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 
-class MovieListAdapter(private val listener: Listener): RecyclerView.Adapter<MovieViewHolder>() {
+class MovieListAdapter(private val listener: Listener) : RecyclerView.Adapter<MovieViewHolder>() {
 
     private var items = mutableListOf<MovieDomain>()
 
-    fun update(list: List<MovieDomain>?){
-        list?.let { movieList ->
-            val diffCallBack = MovieDiffCallback(items, movieList)
-            val diffResult = DiffUtil.calculateDiff(diffCallBack)
-            items.clear()
-            items.addAll(movieList)
-            diffResult.dispatchUpdatesTo(this)
-        }
+    fun update(list: List<MovieDomain>) {
+        val diffCallBack = MovieDiffCallback(items, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack)
+        items.clear()
+        items.addAll(list)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun getItem(position: Int) = items[position]

@@ -17,15 +17,23 @@ import kotlinx.android.synthetic.main.fragment_popular_movies.*
 
 class MoviesFragment : DaggerFragment() {
 
+    enum class PageType(val value: Int) {
+        POPULAR(0),
+        FAVOURITES(1)
+    }
+
     companion object {
-        fun newInstance(pageType: Int): MoviesFragment {
+        fun newInstance(page: Int): MoviesFragment {
             val frag = MoviesFragment()
-            frag.pageType = pageType
+            frag.pageType = when (page) {
+                0 -> PageType.POPULAR
+                else -> PageType.FAVOURITES
+            }
             return frag
         }
     }
 
-    private var pageType: Int? = null
+    private lateinit var pageType: PageType
 
     private val viewModel by lazy { (activity as MainActivity).viewModel }
 
@@ -42,7 +50,7 @@ class MoviesFragment : DaggerFragment() {
             }
         }
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
         observeViewModel()
@@ -50,16 +58,18 @@ class MoviesFragment : DaggerFragment() {
     }
 
     private fun observeViewModel() {
-        when(pageType){
-            0 -> viewModel.popularMoviesLiveData.observe(this, Observer { handleMovieData(it) })
-            1 -> viewModel.favouriteMoviesLiveData.observe(this, Observer { handleMovieData(it) })
+        when (pageType) {
+            PageType.POPULAR ->
+                viewModel.popularMoviesLiveData.observe(this, Observer { handleMovieData(it) })
+            PageType.FAVOURITES ->
+                viewModel.favouriteMoviesLiveData.observe(this, Observer { handleMovieData(it) })
         }
         viewModel.errorStateLiveData.observe(this, Observer {
             Toast.makeText(context, context?.getString(R.string.error_msg_1), Toast.LENGTH_LONG).show()
         })
     }
 
-    private fun handleMovieData(movieList: List<MovieDomain>?) {
+    private fun handleMovieData(movieList: List<MovieDomain>) {
         adapter.update(movieList)
     }
 
@@ -76,7 +86,7 @@ class MoviesFragment : DaggerFragment() {
     }
 
     override fun onDestroy() {
+        if (detailsDialog?.isVisible == true) detailsDialog?.dismiss()
         super.onDestroy()
-        if(detailsDialog?.isVisible == true) detailsDialog?.dismiss()
     }
 }
