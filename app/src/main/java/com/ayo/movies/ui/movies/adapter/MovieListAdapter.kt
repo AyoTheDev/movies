@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 
-class MovieListAdapter(private val listener: Listener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieListAdapter(private val listener: Listener): RecyclerView.Adapter<MovieViewHolder>() {
 
     private var items = mutableListOf<MovieDomain>()
 
@@ -23,7 +23,7 @@ class MovieListAdapter(private val listener: Listener): RecyclerView.Adapter<Rec
 
     fun getItem(position: Int) = items[position]
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_movie, parent, false)
         return MovieViewHolder(view, listener)
@@ -31,8 +31,8 @@ class MovieListAdapter(private val listener: Listener): RecyclerView.Adapter<Rec
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as MovieViewHolder).bind(items[position])
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(items[position])
     }
 
     interface Listener {
