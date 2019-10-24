@@ -3,7 +3,7 @@ package com.ayo.movies.di.module
 import android.content.Context
 import com.ayo.movies.App
 import com.ayo.movies.common.CoroutineContextProvider
-import com.ayo.movies.data.SharedPrefs
+import com.ayo.data.SharedPrefs
 import dagger.Module
 import dagger.Provides
 
@@ -19,8 +19,8 @@ class ApplicationModule(private val app: App){
     }
 
     @Provides
-    fun provideSharedPrefs(context: Context): SharedPrefs {
-        return SharedPrefs(context)
+    fun provideSharedPrefs(context: Context): com.ayo.data.SharedPrefs {
+        return com.ayo.data.SharedPrefs(context)
     }
 
 

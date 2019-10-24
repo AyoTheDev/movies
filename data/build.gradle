@@ -26,20 +26,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def dependencies = rootProject.ext.applicationDependencies
 
+    implementation project(':domain')
     implementation project(':api')
 
-    def dependencies = rootProject.ext.applicationDependencies
-    def testDependencies = rootProject.ext.testDependencies
-
-    testImplementation testDependencies.junit
-    androidTestImplementation testDependencies.runner
-
+    implementation dependencies.gson
     implementation dependencies.dagger
     implementation dependencies.daggerSupport
+
     kapt dependencies.daggerProcessor
     kapt dependencies.daggerCompiler
-    implementation dependencies.gson
 
 
 }

@@ -1,9 +1,11 @@
-package com.ayo.movies.data
+package com.ayo.data
 
+import com.ayo.api.model.MovieApi
+import com.ayo.api.model.PopularMovieApi
 import com.ayo.api.services.MovieDbService
 import com.ayo.domain.model.MovieDomain
+import com.ayo.domain.model.toDomain
 import com.ayo.domain.repository.MovieDbRepository
-import com.ayo.movies.utils.toDomain
 import com.google.gson.Gson
 import javax.inject.Inject
 
@@ -13,31 +15,31 @@ class MovieDbRepositoryImpl @Inject constructor(
     private val gson: Gson
 ) : MovieDbRepository {
 
-    override fun addMovieToFavourites(movie: MovieDomain): List<MovieDomain> {
+    override fun addMovieToFavourites(movie: MovieDomain): Set<String> {
         val set = sharedPrefs.favourites?.toMutableSet() ?: mutableSetOf()
         val movieJson = gson.toJson(movie)
         set.add(movieJson)
         sharedPrefs.favourites = set
-        return set.toDomain(gson)
+        return set
     }
 
-    override fun removeMovieFromFavourites(id: Int): List<MovieDomain> {
-        val oldSet = sharedPrefs.favourites?.toMutableSet() ?: return emptyList()
+    override fun removeMovieFromFavourites(id: Int): Set<String> {
+        val oldSet = sharedPrefs.favourites?.toMutableSet() ?: return emptySet()
         val movies = oldSet.toDomain(gson).toMutableList().filter { it.id != id }
         val newSet = movies.map { gson.toJson(it) }.toSet()
         sharedPrefs.favourites = newSet
-        return newSet.toDomain(gson)
+        return newSet
     }
 
-    override suspend fun getMovieDetails(id: Int): MovieDomain? {
-        return service.getMovie(id)?.toDomain()
+    override suspend fun getMovieDetails(id: Int): MovieApi? {
+        return service.getMovie(id)
     }
 
-    override fun getFavouriteMovies(): List<MovieDomain>? {
-        return sharedPrefs.favourites?.toDomain(gson) ?: emptyList()
+    override fun getFavouriteMovies(): Set<String>? {
+        return sharedPrefs.favourites
     }
 
-    override suspend fun getPopularMovies(): List<MovieDomain>? {
-        return service.getPopularMovies()?.toDomain()
+    override suspend fun getPopularMovies(): PopularMovieApi? {
+        return service.getPopularMovies()
     }
 }

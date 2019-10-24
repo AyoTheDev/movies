@@ -2,9 +2,7 @@ package com.ayo.movies.ui.movies.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.ayo.domain.model.MovieDomain
-import com.ayo.domain.usecase.FavouriteMoviesUseCase
-import com.ayo.domain.usecase.MovieUseCase
-import com.ayo.domain.usecase.PopularMoviesUseCase
+import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
 import dagger.Module
@@ -16,6 +14,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     coroutineContextProvider: CoroutineContextProvider,
     private val favouriteMoviesUseCase: FavouriteMoviesUseCase,
+    private val addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase,
+    private val removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase,
     private val popularMoviesUseCase: PopularMoviesUseCase,
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(
 
     fun addMovieToFavourites(movie: MovieDomain) {
         try {
-            val data = favouriteMoviesUseCase.addMovie(movie)
+            val data = addMovieToFavouritesUseCase.addMovie(movie)
             favouriteMoviesLiveData.postValue(data)
         } catch (e: Exception) {
             Timber.e(e)
@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
 
     fun removeMovieFromFavourites(id: Int) {
         try {
-            val data = favouriteMoviesUseCase.removeMovie(id)
+            val data = removeMovieFromFavouritesUseCase.removeMovie(id)
             favouriteMoviesLiveData.postValue(data)
         } catch (e: Exception) {
             errorStateLiveData.postValue(e)

@@ -1,8 +1,7 @@
-package com.ayo.movies.utils
+package com.ayo.domain.model
 
 import com.ayo.api.model.MovieApi
 import com.ayo.api.model.PopularMovieApi
-import com.ayo.domain.model.MovieDomain
 import com.google.gson.Gson
 
 fun MovieApi.toDomain(): MovieDomain {

@@ -6,8 +6,8 @@ import com.ayo.domain.repository.MovieDbRepository
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class FavouriteMoviesUseCase
+class RemoveMovieFromFavouritesUseCase
 @Inject constructor(private val movieDbRepository: MovieDbRepository, private val gson: Gson) {
 
-    fun getFavouriteMovies(): List<MovieDomain>? = movieDbRepository.getFavouriteMovies()?.toDomain(gson)
+    fun removeMovie(id: Int): List<MovieDomain> = movieDbRepository.removeMovieFromFavourites(id).toDomain(gson)
 }

@@ -4,8 +4,8 @@ import com.ayo.api.model.MovieApi
 import com.ayo.api.services.MovieDbService
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.repository.MovieDbRepository
-import com.ayo.movies.data.MovieDbRepositoryImpl
-import com.ayo.movies.data.SharedPrefs
+import com.ayo.data.MovieDbRepositoryImpl
+import com.ayo.data.SharedPrefs
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.doReturn
 import kotlinx.coroutines.runBlocking
@@ -27,13 +27,13 @@ class RepositoryTest {
     lateinit var service: MovieDbService
 
     @Mock
-    lateinit var sharedPrefs: SharedPrefs
+    lateinit var sharedPrefs: com.ayo.data.SharedPrefs
 
     private val gson = Gson()
 
     @Before
     fun setUp() {
-        underTest = MovieDbRepositoryImpl(service, sharedPrefs, gson)
+        underTest = com.ayo.data.MovieDbRepositoryImpl(service, sharedPrefs, gson)
     }
 
     @Test
