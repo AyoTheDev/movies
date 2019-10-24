@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 import com.ayo.movies.ui.movies.activity.MainActivity
+import com.ayo.movies.utils.ImageLoaderUtils
 import com.ayo.movies.utils.prependMovieImageUrl
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerDialogFragment
@@ -31,7 +32,7 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        loading_flipper.displayedChild = 0
+        showLoading(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,6 +45,10 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
         setUpListener()
         loadData()
         observeViewModel()
+    }
+
+    private fun showLoading(loading: Boolean){
+        loading_flipper.displayedChild = if(loading) 0 else 1
     }
 
     private fun setUpView() {
@@ -79,19 +84,12 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     private fun handleMovieDetails(movie: MovieDomain) {
         this.movie = movie
-        Glide
-            .with(this)
-            .load(movie.imgUrl.prependMovieImageUrl())
-            .placeholder(R.drawable.ic_placeholder)
-            .into(image)
-
+        ImageLoaderUtils.loadImage(context, movie.imgUrl.prependMovieImageUrl(), image)
         title.text = movie.title
         details.text = movie.overview
         val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
         runtime.text = runTimeText
-
-        loading_flipper.displayedChild = 1
-
+        showLoading(false)
     }
 
     private fun loadData() {
