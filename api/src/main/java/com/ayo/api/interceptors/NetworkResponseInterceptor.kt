@@ -12,8 +12,7 @@ class NetworkResponseInterceptor : Interceptor {
         val response = chain.proceed(chain.request().newBuilder().build())
 
         when (response.code()) {
-            in 401..499,
-            400 -> {
+            in 400..499 -> {
                 throw NetworkException(response.code(), response.message())
             }
             in 500..599 -> {
