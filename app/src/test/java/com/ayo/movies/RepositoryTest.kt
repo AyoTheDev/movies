@@ -2,10 +2,9 @@ package com.ayo.movies
 
 import com.ayo.api.model.MovieApi
 import com.ayo.api.services.MovieDbService
-import com.ayo.domain.model.MovieDomain
-import com.ayo.domain.repository.MovieDbRepository
-import com.ayo.data.MovieDbRepositoryImpl
+import com.ayo.data.repository.MovieDbRepository
 import com.ayo.data.SharedPrefs
+import com.ayo.data.model.MovieData
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.doReturn
 import kotlinx.coroutines.runBlocking
@@ -27,13 +26,13 @@ class RepositoryTest {
     lateinit var service: MovieDbService
 
     @Mock
-    lateinit var sharedPrefs: com.ayo.data.SharedPrefs
+    lateinit var sharedPrefs: SharedPrefs
 
     private val gson = Gson()
 
     @Before
     fun setUp() {
-        underTest = com.ayo.data.MovieDbRepositoryImpl(service, sharedPrefs, gson)
+        underTest = MovieDbRepository(service, sharedPrefs, gson)
     }
 
     @Test
@@ -89,7 +88,7 @@ class RepositoryTest {
     private val dummyMovieApi = MovieApi(1, "movie", "url", "overview", 1)
 
 
-    private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
+    private val dummyMovie = MovieData(1, "movie", "url", "overview", 1)
 
     private val dummyMovieJson = "{\"id\":290859,\"imgUrl\":\"/vqzNJRH4YyquRiWxCCOH0aXggHI.jpg\",\"overview\":\"" +
             "More than two decades have passed since Sarah Connor prevented Judgment Day, changed the future, " +

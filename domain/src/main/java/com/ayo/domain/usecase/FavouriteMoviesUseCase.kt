@@ -1,8 +1,8 @@
 package com.ayo.domain.usecase
 
+import com.ayo.data.repository.MovieDbRepository
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.model.toDomain
-import com.ayo.domain.repository.MovieDbRepository
 import com.google.gson.Gson
 import javax.inject.Inject
 
