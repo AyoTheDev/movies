@@ -55,7 +55,7 @@ class MoviesFragment : DaggerFragment() {
             1 -> viewModel.favouriteMoviesLiveData.observe(this, Observer { handleMovieData(it) })
         }
         viewModel.errorStateLiveData.observe(this, Observer {
-            Toast.makeText(context, context?.getString(R.string.error_msg), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context?.getString(R.string.error_msg_1), Toast.LENGTH_LONG).show()
         })
     }
 
