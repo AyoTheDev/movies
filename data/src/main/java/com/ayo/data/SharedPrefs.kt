@@ -1,8 +1,9 @@
-package com.ayo.movies.data
+package com.ayo.data
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import java.util.Collections.emptySet
 
 private const val FILE_NAME = "com.ayo.movies"
 private const val FAVOURITES = "favourites"

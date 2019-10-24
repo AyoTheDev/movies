@@ -31,7 +31,8 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
 
     implementation project(':domain')
-    api project(path: ':api')
+    implementation project(':api')
+    implementation project(':data')
 
     implementation dependencies.gson
     implementation dependencies.kotlinCoroutinesCore

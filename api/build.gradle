@@ -30,8 +30,6 @@ dependencies {
     def dependencies = rootProject.ext.apiDependencies
     def testDependencies = rootProject.ext.testDependencies
 
-    implementation project(':domain')
-
     implementation dependencies.kotlin
     implementation dependencies.kotlinCore
     implementation dependencies.kotlinCoroutinesAndroid

@@ -1,17 +1,19 @@
 package com.ayo.domain.repository
 
+import com.ayo.api.model.MovieApi
+import com.ayo.api.model.PopularMovieApi
 import com.ayo.domain.model.MovieDomain
 
 interface MovieDbRepository {
 
-    suspend fun getMovieDetails(id: Int): MovieDomain?
+    suspend fun getMovieDetails(id: Int): MovieApi?
 
-    fun getFavouriteMovies(): List<MovieDomain>?
+    fun getFavouriteMovies():  Set<String>?
 
-    suspend fun getPopularMovies(): List<MovieDomain>?
+    suspend fun getPopularMovies(): PopularMovieApi?
 
-    fun addMovieToFavourites(movie: MovieDomain): List<MovieDomain>
+    fun addMovieToFavourites(movie: MovieDomain): Set<String>
 
-    fun removeMovieFromFavourites(id: Int): List<MovieDomain>
+    fun removeMovieFromFavourites(id: Int): Set<String>
 
 }

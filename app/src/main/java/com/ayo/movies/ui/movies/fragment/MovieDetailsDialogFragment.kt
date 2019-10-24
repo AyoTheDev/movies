@@ -9,8 +9,7 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.utils.ImageLoaderUtils
-import com.ayo.movies.utils.prependMovieImageUrl
-import com.bumptech.glide.Glide
+import com.ayo.domain.model.prependMovieImageUrl
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 
