@@ -1,10 +1,11 @@
-package com.ayo.movies.ui
+package com.ayo.movies.ui.movies.activity
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.ayo.movies.R
 import com.ayo.movies.di.ViewModelFactory
-import com.ayo.movies.ui.adapter.ViewPagerAdapter
+import com.ayo.movies.ui.movies.viewmodel.MainViewModel
+import com.ayo.movies.ui.movies.adapter.ViewPagerAdapter
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

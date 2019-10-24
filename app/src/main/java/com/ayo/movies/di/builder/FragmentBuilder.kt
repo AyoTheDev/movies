@@ -1,8 +1,7 @@
 package com.ayo.movies.di.builder
 
-import com.ayo.movies.ui.FavouriteMoviesFragment
-import com.ayo.movies.ui.MovieDetailsDialogFragment
-import com.ayo.movies.ui.PopularMoviesFragment
+import com.ayo.movies.ui.movies.fragment.MovieDetailsDialogFragment
+import com.ayo.movies.ui.movies.fragment.MoviesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -10,10 +9,7 @@ import dagger.android.ContributesAndroidInjector
 interface FragmentBuilder {
 
     @ContributesAndroidInjector
-    fun contributePopularMoviesFragment(): PopularMoviesFragment
-
-    @ContributesAndroidInjector
-    fun contributesFavouriteMoviesFragment(): FavouriteMoviesFragment
+    fun contributePopularMoviesFragment(): MoviesFragment
 
     @ContributesAndroidInjector
     fun contributeMovieDetailsDialogFragment(): MovieDetailsDialogFragment
