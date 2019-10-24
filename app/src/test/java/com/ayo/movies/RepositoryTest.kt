@@ -12,7 +12,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
@@ -22,7 +21,7 @@ class RepositoryTest {
 
     private lateinit var underTest: MovieDbRepository
 
-    @InjectMocks
+    @Mock
     lateinit var service: MovieDbService
 
     @Mock
@@ -75,7 +74,6 @@ class RepositoryTest {
     @Test
     fun getMovieDetails() = runBlocking {
         //given
-        //whenever(service.getMovie(1)).thenReturn(dummyMovieApi)
         `when`(service.getMovie(1)).thenReturn(dummyMovieApi)
 
         //when
@@ -86,7 +84,6 @@ class RepositoryTest {
     }
 
     private val dummyMovieApi = MovieApi(1, "movie", "url", "overview", 1)
-
 
     private val dummyMovie = MovieData(1, "movie", "url", "overview", 1)
 
