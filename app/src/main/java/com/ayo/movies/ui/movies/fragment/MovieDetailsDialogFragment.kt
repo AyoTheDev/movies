@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
@@ -42,12 +43,12 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpView()
         setUpListener()
-        loadData()
+        loadData(movieId)
         observeViewModel()
     }
 
-    private fun showLoading(loading: Boolean){
-        loading_flipper.displayedChild = if(loading) 0 else 1
+    private fun showLoading(loading: Boolean) {
+        loading_flipper.displayedChild = if (loading) 0 else 1
     }
 
     private fun setUpView() {
@@ -91,7 +92,12 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
         showLoading(false)
     }
 
-    private fun loadData() {
-        movieId?.let { id -> viewModel.loadMovieDetails(id) }
+    private fun loadData(movieId: Int?) {
+        if (movieId != null) {
+            viewModel.loadMovieDetails(movieId)
+        } else {
+            Toast.makeText(context, context?.getString(R.string.error_msg_2), Toast.LENGTH_LONG).show()
+            dismiss()
+        }
     }
 }
