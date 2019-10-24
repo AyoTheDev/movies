@@ -2,7 +2,6 @@ package com.ayo.movies.di.component
 
 import android.app.Application
 import com.ayo.api.di.NetworkModule
-import com.ayo.domain.di.UseCaseModule
 import com.ayo.movies.App
 import com.ayo.movies.di.builder.ActivityBuilder
 import com.ayo.movies.di.builder.FragmentBuilder
@@ -22,7 +21,6 @@ import javax.inject.Singleton
         ApplicationModule::class,
         NetworkModule::class,
         RepositoryModule::class,
-        UseCaseModule::class,
         ViewModelModule::class,
         ActivityBuilder::class,
         FragmentBuilder::class
@@ -38,7 +36,6 @@ interface ApplicationComponent : AndroidInjector<App> {
         fun applicationModule(applicationModule: ApplicationModule): Builder
         fun networkModule(networkModule: NetworkModule): Builder
         fun repositoryModule(repositoryModule: RepositoryModule): Builder
-        fun useCaseModule(useCaseModule: UseCaseModule): Builder
         fun build(): ApplicationComponent
     }
 
