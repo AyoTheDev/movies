@@ -20,6 +20,7 @@ class MainViewModel @Inject constructor(
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
 
+    val errorStateLiveData = MutableLiveData<Exception>()
     val favouriteMoviesLiveData = MutableLiveData<List<MovieDomain>>()
     val popularMoviesLiveData = MutableLiveData<List<MovieDomain>>()
     val movieDetailsLiveData = MutableLiveData<MovieDomain>()
@@ -38,6 +39,7 @@ class MainViewModel @Inject constructor(
             val data = favouriteMoviesUseCase.removeMovie(id)
             favouriteMoviesLiveData.postValue(data)
         } catch (e: Exception) {
+            errorStateLiveData.postValue(e)
             Timber.e(e)
         }
     }
@@ -47,6 +49,7 @@ class MainViewModel @Inject constructor(
             val data = moviesUseCase.getMovie(id)
             movieDetailsLiveData.postValue(data)
         } catch (e: Exception) {
+            errorStateLiveData.postValue(e)
             Timber.e(e)
         }
     })
@@ -61,6 +64,7 @@ class MainViewModel @Inject constructor(
             val data = favouriteMoviesUseCase.getFavouriteMovies()
             favouriteMoviesLiveData.postValue(data)
         } catch (e: Exception) {
+            errorStateLiveData.postValue(e)
             Timber.e(e)
         }
     })
@@ -70,6 +74,7 @@ class MainViewModel @Inject constructor(
             val data = popularMoviesUseCase.getPopularMovies()
             popularMoviesLiveData.postValue(data)
         } catch (e: Exception) {
+            errorStateLiveData.postValue(e)
             Timber.e(e)
         }
     })

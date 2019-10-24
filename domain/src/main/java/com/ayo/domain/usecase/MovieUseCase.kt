@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class MovieUseCase @Inject constructor(private val movieDbRepository: MovieDbRepository) {
 
-    suspend fun getMovie(id: Int) = movieDbRepository.getMovie(id)
+    suspend fun getMovie(id: Int) = movieDbRepository.getMovieDetails(id)
 }
