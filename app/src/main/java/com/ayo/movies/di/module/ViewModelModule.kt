@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ayo.movies.di.ViewModelFactory
 import com.ayo.movies.di.ViewModelKey
-import com.ayo.movies.ui.MainViewModel
+import com.ayo.movies.ui.movies.viewmodel.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

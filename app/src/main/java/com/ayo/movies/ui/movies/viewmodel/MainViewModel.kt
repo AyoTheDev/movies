@@ -1,4 +1,4 @@
-package com.ayo.movies.ui
+package com.ayo.movies.ui.movies.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.ayo.domain.model.MovieDomain
@@ -19,6 +19,11 @@ class MainViewModel @Inject constructor(
     private val popularMoviesUseCase: PopularMoviesUseCase,
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
+
+    init {
+        loadPopularMovies()
+        loadFavouriteMovies()
+    }
 
     val errorStateLiveData = MutableLiveData<Exception>()
     val favouriteMoviesLiveData = MutableLiveData<List<MovieDomain>>()
@@ -59,7 +64,7 @@ class MainViewModel @Inject constructor(
         return currentFavourites?.map { it.id }?.contains(id)
     }
 
-    fun loadFavouriteMovies() = load(launch {
+    private fun loadFavouriteMovies() = load(launch {
         try {
             val data = favouriteMoviesUseCase.getFavouriteMovies()
             favouriteMoviesLiveData.postValue(data)
@@ -69,7 +74,7 @@ class MainViewModel @Inject constructor(
         }
     })
 
-    fun loadPopularMovies() = load(launch {
+    private fun loadPopularMovies() = load(launch {
         try {
             val data = popularMoviesUseCase.getPopularMovies()
             popularMoviesLiveData.postValue(data)

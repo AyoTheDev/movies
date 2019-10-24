@@ -1,23 +1,31 @@
-package com.ayo.movies.ui
+package com.ayo.movies.ui.movies.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
-import com.ayo.movies.di.ViewModelFactory
-import com.ayo.movies.ui.adapter.MovieListAdapter
+import com.ayo.movies.ui.movies.activity.MainActivity
+import com.ayo.movies.ui.movies.adapter.MovieListAdapter
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_favourite_movies.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_popular_movies.*
 
-class FavouriteMoviesFragment: DaggerFragment() {
+class MoviesFragment : DaggerFragment() {
+
+    companion object {
+        fun newInstance(pageType: Int): MoviesFragment {
+            val frag = MoviesFragment()
+            frag.pageType = pageType
+            return frag
+        }
+    }
+
+    private var pageType: Int? = null
 
     private val viewModel by lazy { (activity as MainActivity).viewModel }
 
@@ -34,16 +42,21 @@ class FavouriteMoviesFragment: DaggerFragment() {
             }
         }
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
-        viewModel.loadFavouriteMovies()
         observeViewModel()
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun observeViewModel() {
-        viewModel.favouriteMoviesLiveData.observe(this, Observer { handleMovieData(it) })
+        when(pageType){
+            0 -> viewModel.popularMoviesLiveData.observe(this, Observer { handleMovieData(it) })
+            1 -> viewModel.favouriteMoviesLiveData.observe(this, Observer { handleMovieData(it) })
+        }
+        viewModel.errorStateLiveData.observe(this, Observer {
+            Toast.makeText(context, context?.getString(R.string.error_msg), Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun handleMovieData(movieList: List<MovieDomain>?) {
@@ -59,6 +72,11 @@ class FavouriteMoviesFragment: DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favourite_movies, container, false)
+        return inflater.inflate(R.layout.fragment_popular_movies, container, false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(detailsDialog?.isVisible == true) detailsDialog?.dismiss()
     }
 }

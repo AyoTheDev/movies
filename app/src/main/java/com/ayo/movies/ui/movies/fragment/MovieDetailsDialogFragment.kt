@@ -1,4 +1,4 @@
-package com.ayo.movies.ui
+package com.ayo.movies.ui.movies.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
+import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.utils.prependMovieImageUrl
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerDialogFragment

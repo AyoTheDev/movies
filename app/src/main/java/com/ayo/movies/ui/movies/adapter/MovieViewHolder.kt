@@ -1,4 +1,4 @@
-package com.ayo.movies.ui.adapter
+package com.ayo.movies.ui.movies.adapter
 
 import android.view.View
 import android.view.animation.AlphaAnimation
