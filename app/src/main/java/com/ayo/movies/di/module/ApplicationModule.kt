@@ -6,7 +6,6 @@ import com.ayo.movies.common.CoroutineContextProvider
 import com.ayo.movies.data.SharedPrefs
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class ApplicationModule(private val app: App){
