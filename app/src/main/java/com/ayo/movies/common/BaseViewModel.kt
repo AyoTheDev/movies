@@ -11,8 +11,16 @@ abstract class BaseViewModel(coroutineContextProvider: CoroutineContextProvider)
     private val jobs = mutableListOf<Job>()
     override val coroutineContext: CoroutineContext = coroutineContextProvider.io
 
-    override fun onCleared() = jobs.forEach { it.cancel() }
+    override fun onCleared() = jobs.forEach {
+        it.cancel()
+        jobs.remove(it)
+    }
 
-    fun load(job: Job) = jobs.add(job)
+    fun load(job: Job) {
+        job.apply {
+            jobs.add(this)
+            this.invokeOnCompletion { jobs.remove(this) }
+        }
+    }
 
 }
