@@ -5,4 +5,5 @@
     <string name="add_to_favourites">Add to favourites</string>
     <string name="remove_from_favourites">Remove from favourites</string>
     <string name="error_msg">Problem fetching movies</string>
+    <string name="minutes">minutes</string>
 </resources>

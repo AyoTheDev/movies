@@ -87,7 +87,7 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
         title.text = movie.title
         details.text = movie.overview
-        val runTimeText = "${movie.runtime} mins"
+        val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
         runtime.text = runTimeText
 
         loading_flipper.displayedChild = 1

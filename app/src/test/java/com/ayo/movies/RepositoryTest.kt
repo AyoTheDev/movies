@@ -1,5 +1,6 @@
 package com.ayo.movies
 
+import com.ayo.api.model.MovieApi
 import com.ayo.api.services.MovieDbService
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.repository.MovieDbRepository
@@ -7,11 +8,14 @@ import com.ayo.movies.data.MovieDbRepositoryImpl
 import com.ayo.movies.data.SharedPrefs
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.doReturn
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -19,7 +23,7 @@ class RepositoryTest {
 
     private lateinit var underTest: MovieDbRepository
 
-    @Mock
+    @InjectMocks
     lateinit var service: MovieDbService
 
     @Mock
@@ -43,7 +47,6 @@ class RepositoryTest {
         //then
         assert(result.isNotEmpty())
     }
-
 
     @Test
     fun removeMovieFromFavourites() {
@@ -69,6 +72,22 @@ class RepositoryTest {
         assertNotNull(result)
         assert(result?.isNotEmpty() == true)
     }
+
+    @Test
+    fun getMovieDetails() = runBlocking {
+        //given
+        //whenever(service.getMovie(1)).thenReturn(dummyMovieApi)
+        `when`(service.getMovie(1)).thenReturn(dummyMovieApi)
+
+        //when
+        val result = underTest.getMovieDetails(1)
+
+        //then
+        assertNotNull(result)
+    }
+
+    private val dummyMovieApi = MovieApi(1, "movie", "url", "overview", 1)
+
 
     private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
 
