@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 
-class SharedPrefs(private val context: Context) {
+private const val FILE_NAME = "com.ayo.movies"
+private const val FAVOURITES = "favourites"
 
-    companion object {
-        private const val FILE_NAME = "com.ayo.movies"
-        private const val FAVOURITES = "favourites"
-    }
+class SharedPrefs(context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(FILE_NAME, MODE_PRIVATE)
 

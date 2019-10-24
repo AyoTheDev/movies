@@ -19,7 +19,7 @@ class App : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerApplicationComponent.builder()
             .application(this)
-            .applicationModule(ApplicationModule(applicationContext))
+            .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
             .repositoryModule(RepositoryModule())
             .useCaseModule(UseCaseModule())

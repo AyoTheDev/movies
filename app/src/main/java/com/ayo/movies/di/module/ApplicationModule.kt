@@ -1,6 +1,7 @@
 package com.ayo.movies.di.module
 
 import android.content.Context
+import com.ayo.movies.App
 import com.ayo.movies.common.CoroutineContextProvider
 import com.ayo.movies.data.SharedPrefs
 import dagger.Module
@@ -8,11 +9,10 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val context: Context){
+class ApplicationModule(private val app: App){
 
-    @Singleton
     @Provides
-    fun provideContext(): Context = context
+    fun provideContext(): Context = app.applicationContext
 
     @Provides
     fun provideCoroutineContext(): CoroutineContextProvider {
