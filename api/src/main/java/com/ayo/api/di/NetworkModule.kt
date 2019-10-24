@@ -39,10 +39,9 @@ class NetworkModule {
     @Provides
     fun provideMovieDbHttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(NetworkResponseInterceptor())
             .addInterceptor(NetworkConnectivityInterceptor(context))
+            .addInterceptor(NetworkResponseInterceptor())
             .addQueryParameterInterceptor(API_KEY_FIELD, API_KEY)
-            .readTimeout(TIME_OUT, TimeUnit.MINUTES)
             .connectTimeout(TIME_OUT, TimeUnit.MINUTES)
             .build()
     }
