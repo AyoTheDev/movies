@@ -79,6 +79,9 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     private fun observeViewModel() {
         viewModel.movieDetailsLiveData.observe(this, Observer { handleMovieDetails(it) })
+        viewModel.errorStateLiveData.observe(this, Observer {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun handleMovieDetails(movie: MovieDomain) {

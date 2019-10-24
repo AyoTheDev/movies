@@ -20,7 +20,6 @@ class NetworkResponseInterceptor : Interceptor {
 
             }
         }
-
         return response
     }
 }

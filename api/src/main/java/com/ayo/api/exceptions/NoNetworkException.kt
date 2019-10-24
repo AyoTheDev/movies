@@ -1,3 +1,5 @@
 package com.ayo.api.exceptions
 
-class NoNetworkException : Throwable("No internet connection available.")
+import java.io.IOException
+
+class NoNetworkException : IOException("No internet connection available.")

@@ -15,9 +15,9 @@ class NetworkConnectivityInterceptor(val context: Context) : Interceptor {
             return activeNetwork != null && activeNetwork.isConnected
         }
 
-    override fun intercept(chain: Interceptor.Chain?): Response {
+    override fun intercept(chain: Interceptor.Chain): Response {
         return if (isNetworkAvailable) {
-            chain!!.proceed(chain.request())
+            chain.proceed(chain.request())
         } else {
             throw NoNetworkException()
         }
