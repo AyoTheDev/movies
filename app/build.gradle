@@ -56,7 +56,6 @@ dependencies {
     implementation dependencies.retrofitGsonMap
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
-    testImplementation testDependencies.mockitoAndroid
     testImplementation testDependencies.mockitoInLine
     testImplementation testDependencies.mockitoKotlin
     testImplementation testDependencies.archCore

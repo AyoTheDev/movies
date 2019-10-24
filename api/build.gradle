@@ -48,4 +48,10 @@ dependencies {
     kapt dependencies.daggerProcessor
     kapt dependencies.daggerCompiler
 
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.mockitoAndroid
+    testImplementation testDependencies.mockitoInLine
+    testImplementation testDependencies.mockitoKotlin
+
+
 }

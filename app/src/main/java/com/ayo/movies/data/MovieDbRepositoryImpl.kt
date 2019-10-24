@@ -29,7 +29,7 @@ class MovieDbRepositoryImpl @Inject constructor(
         return newSet.toDomain(gson)
     }
 
-    override suspend fun getMovie(id: Int): MovieDomain? {
+    override suspend fun getMovieDetails(id: Int): MovieDomain? {
         return service.getMovie(id)?.toDomain()
     }
 

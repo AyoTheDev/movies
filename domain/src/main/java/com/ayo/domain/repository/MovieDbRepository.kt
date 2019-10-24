@@ -4,7 +4,7 @@ import com.ayo.domain.model.MovieDomain
 
 interface MovieDbRepository {
 
-    suspend fun getMovie(id: Int): MovieDomain?
+    suspend fun getMovieDetails(id: Int): MovieDomain?
 
     fun getFavouriteMovies(): List<MovieDomain>?
 
