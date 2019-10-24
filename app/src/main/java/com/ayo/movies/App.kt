@@ -1,7 +1,6 @@
 package com.ayo.movies
 
 import com.ayo.api.di.NetworkModule
-import com.ayo.domain.di.UseCaseModule
 import com.ayo.movies.di.component.DaggerApplicationComponent
 import com.ayo.movies.di.module.ApplicationModule
 import com.ayo.movies.di.module.RepositoryModule
@@ -22,7 +21,6 @@ class App : DaggerApplication() {
             .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
             .repositoryModule(RepositoryModule())
-            .useCaseModule(UseCaseModule())
             .build()
     }
 }
