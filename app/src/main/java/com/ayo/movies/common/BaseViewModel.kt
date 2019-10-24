@@ -15,5 +15,4 @@ abstract class BaseViewModel(coroutineContextProvider: CoroutineContextProvider)
 
     fun load(job: Job) = jobs.add(job)
 
-
 }
