@@ -28,7 +28,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     def dependencies = rootProject.ext.applicationDependencies
 
-    implementation project(':domain')
     implementation project(':api')
 
     implementation dependencies.gson
