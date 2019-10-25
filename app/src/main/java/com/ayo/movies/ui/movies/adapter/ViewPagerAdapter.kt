@@ -7,12 +7,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.ayo.movies.R
 import com.ayo.movies.ui.movies.fragment.MoviesFragment
 
+private const val PAGE_COUNT = 2
+
 class ViewPagerAdapter(private val context: Context, fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager) {
-
-    companion object {
-        private const val PAGE_COUNT = 2
-    }
 
     override fun getItem(position: Int): Fragment {
         return MoviesFragment.newInstance(position)

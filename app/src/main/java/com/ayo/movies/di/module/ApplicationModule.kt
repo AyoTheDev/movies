@@ -19,8 +19,8 @@ class ApplicationModule(private val app: App){
     }
 
     @Provides
-    fun provideSharedPrefs(context: Context): com.ayo.data.SharedPrefs {
-        return com.ayo.data.SharedPrefs(context)
+    fun provideSharedPrefs(context: Context): SharedPrefs {
+        return SharedPrefs(context)
     }
 
 

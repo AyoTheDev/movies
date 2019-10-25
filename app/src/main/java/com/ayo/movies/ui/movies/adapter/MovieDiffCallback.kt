@@ -1,6 +1,5 @@
 package com.ayo.movies.ui.movies.adapter
 
-import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
 import com.ayo.domain.model.MovieDomain
 
