@@ -21,6 +21,8 @@ class MainViewModel @Inject constructor(
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
 
+    //todo would be good to wrap the data in a resource class that encapsulates the data allowing for error,
+    // loading and success state, would make testing more robust
     val errorStateLiveData = SingleLiveEvent<String>()
     val favouriteMoviesLiveData = MutableLiveData<List<MovieDomain>>()
     val popularMoviesLiveData = MutableLiveData<List<MovieDomain>>()
@@ -40,7 +42,6 @@ class MainViewModel @Inject constructor(
             errorStateLiveData.postValue("Problem fetching movies")
             Timber.e(e)
         }
-
     }
 
     fun removeMovieFromFavourites(id: Int) {

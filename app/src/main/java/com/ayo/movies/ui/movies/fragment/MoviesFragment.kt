@@ -13,7 +13,7 @@ import com.ayo.movies.R
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.ui.movies.adapter.MovieListAdapter
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_popular_movies.*
+import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : DaggerFragment() {
 
@@ -71,9 +71,11 @@ class MoviesFragment : DaggerFragment() {
 
     private fun handleMovieData(movieList: List<MovieDomain>) {
         adapter.update(movieList)
+        showLoading(false)
     }
 
     private fun setUpView() {
+        showLoading(true)
         val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration = DividerItemDecoration(recyclerView?.context, layoutManager.orientation)
         recyclerView?.addItemDecoration(dividerItemDecoration)
@@ -82,11 +84,15 @@ class MoviesFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_popular_movies, container, false)
+        return inflater.inflate(R.layout.fragment_movies, container, false)
     }
 
     override fun onDestroy() {
         if (detailsDialog?.isVisible == true) detailsDialog?.dismiss()
         super.onDestroy()
+    }
+
+    private fun showLoading(loading: Boolean){
+        loading_flipper.displayedChild = if (loading) 0 else 1
     }
 }

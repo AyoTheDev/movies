@@ -10,7 +10,6 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +51,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun testAddMovieToFavouritesSuccess()  {
+    fun addMovieToFavouritesSuccess() {
         //given
         val movie = dummyMovie
         val observer: Observer<List<MovieDomain>> = mock()
@@ -67,7 +66,19 @@ class MainViewModelTest {
         verify(observer).onChanged(listOf(movie))
     }
 
-    private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
+    @Test(expected = Exception::class)
+    fun addMovieToFavouritesError() {
+        //given
+        val error = Exception()
+        val observer: Observer<String> = mock()
+        whenever(addMovieToFavouritesUseCase.addMovie(dummyMovie)).thenThrow(error)
 
+        underTest.errorStateLiveData.observeForever(observer)
+        underTest.addMovieToFavourites(dummyMovie)
+
+        verify(observer).onChanged("Problem fetching movies")
+    }
+
+    private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
 
 }
