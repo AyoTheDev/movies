@@ -21,11 +21,6 @@ class MainViewModel @Inject constructor(
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
 
-    init {
-        loadPopularMovies()
-        loadFavouriteMovies()
-    }
-
     val errorStateLiveData = SingleLiveEvent<String>()
     val favouriteMoviesLiveData = MutableLiveData<List<MovieDomain>>()
     val popularMoviesLiveData = MutableLiveData<List<MovieDomain>>()
@@ -85,7 +80,7 @@ class MainViewModel @Inject constructor(
         return currentFavourites?.map { it.id }?.contains(id)
     }
 
-    private fun loadFavouriteMovies() = load(launch {
+    fun loadFavouriteMovies() = load(launch {
         try {
             val data = favouriteMoviesUseCase.getFavouriteMovies()
             favouriteMoviesLiveData.postValue(data)
@@ -101,7 +96,7 @@ class MainViewModel @Inject constructor(
         }
     })
 
-    private fun loadPopularMovies() = load(launch {
+    fun loadPopularMovies() = load(launch {
         try {
             val data = popularMoviesUseCase.getPopularMovies()
             popularMoviesLiveData.postValue(data)

@@ -25,6 +25,14 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpView()
+        loadData()
+    }
+
+    private fun loadData(){
+        viewModel.apply {
+            loadPopularMovies()
+            loadFavouriteMovies()
+        }
     }
 
     private fun setUpView() {
