@@ -6,6 +6,7 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
 import com.ayo.movies.ui.movies.viewmodel.MainViewModel
+import com.ayo.movies.utils.Resource
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -54,31 +55,33 @@ class MainViewModelTest {
     fun addMovieToFavouritesSuccess() {
         //given
         val movie = dummyMovie
-        val observer: Observer<List<MovieDomain>> = mock()
+        val observer: Observer<Resource<List<MovieDomain>>> = mock()
         whenever(addMovieToFavouritesUseCase.addMovie(movie)).doReturn(listOf(movie))
 
         //when
-        underTest._favouriteMovies.observeForever(observer)
+        underTest.favouriteMovies.observeForever(observer)
         underTest.addMovieToFavourites(movie)
 
         //then
         verify(addMovieToFavouritesUseCase).addMovie(movie)
-        verify(observer).onChanged(listOf(movie))
+        verify(observer).onChanged(Resource.Success(listOf(movie)))
     }
 
     @Test(expected = Exception::class)
     fun addMovieToFavouritesError() {
         //given
         val error = Exception()
-        val observer: Observer<String> = mock()
+        val observer: Observer<Resource<List<MovieDomain>>> = mock()
+
         whenever(addMovieToFavouritesUseCase.addMovie(dummyMovie)).thenThrow(error)
 
-        underTest.errorStateLiveData.observeForever(observer)
+        underTest.favouriteMovies.observeForever(observer)
         underTest.addMovieToFavourites(dummyMovie)
 
-        verify(observer).onChanged("Problem fetching movies")
+        verify(observer).onChanged(Resource.Failure("test fail"))
     }
 
     private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
 
 }
+
