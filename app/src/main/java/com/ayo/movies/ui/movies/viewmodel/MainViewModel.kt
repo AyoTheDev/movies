@@ -1,13 +1,16 @@
 package com.ayo.movies.ui.movies.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ayo.api.exceptions.NoNetworkException
 import com.ayo.api.exceptions.ServerException
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
-import com.ayo.movies.common.SingleLiveEvent
+import com.ayo.movies.utils.Resource
+import com.ayo.movies.utils.Resource.Success
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,25 +24,39 @@ class MainViewModel @Inject constructor(
     private val moviesUseCase: MovieUseCase
 ) : BaseViewModel(coroutineContextProvider) {
 
-    //todo would be good to wrap the data in a resource class that encapsulates the data allowing for error,
-    // loading and success state, would make testing more robust
-    val errorStateLiveData = SingleLiveEvent<String>()
-    val favouriteMoviesLiveData = MutableLiveData<List<MovieDomain>>()
-    val popularMoviesLiveData = MutableLiveData<List<MovieDomain>>()
-    val movieDetailsLiveData = MutableLiveData<MovieDomain>()
+    val favouriteMovies: LiveData<Resource<List<MovieDomain>>>
+        get() = _favouriteMovies
+
+    val popularMovies: LiveData<Resource<List<MovieDomain>>>
+        get() = _popularMovies
+
+    val movieDetails: LiveData<Resource<MovieDomain>>
+        get() = _movieDetails
+
+    private val _favouriteMovies = MutableLiveData<Resource<List<MovieDomain>>>()
+    private val _popularMovies = MutableLiveData<Resource<List<MovieDomain>>>()
+    private val _movieDetails = MutableLiveData<Resource<MovieDomain>>()
+
+    init {
+        _favouriteMovies.postValue(Resource.Loading(true))
+        _popularMovies.postValue(Resource.Loading(true))
+    }
 
     fun addMovieToFavourites(movie: MovieDomain) {
         try {
             val data = addMovieToFavouritesUseCase.addMovie(movie)
-            favouriteMoviesLiveData.postValue(data)
+            _favouriteMovies.postValue(Success(data))
         } catch (e: NoNetworkException) {
+            _favouriteMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
-            errorStateLiveData.postValue("Please connect to the internet")
         } catch (e: ServerException) {
-            errorStateLiveData.postValue("MovieDb is currently down")
+            _favouriteMovies
+                .postValue(Resource.Failure("MovieDb is currently down", e))
             Timber.e(e)
         } catch (e: Exception) {
-            errorStateLiveData.postValue("Problem fetching movies")
+            _favouriteMovies
+                .postValue(Resource.Failure("Problem fetching movies", e))
             Timber.e(e)
         }
     }
@@ -47,31 +64,38 @@ class MainViewModel @Inject constructor(
     fun removeMovieFromFavourites(id: Int) {
         try {
             val data = removeMovieFromFavouritesUseCase.removeMovie(id)
-            favouriteMoviesLiveData.postValue(data)
+            _favouriteMovies.postValue(Success(data))
         } catch (e: NoNetworkException) {
+            _favouriteMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
-            errorStateLiveData.postValue("Please connect to the internet")
         } catch (e: ServerException) {
-            errorStateLiveData.postValue("MovieDb is currently down")
+            _favouriteMovies
+                .postValue(Resource.Failure("MovieDb is currently down", e))
             Timber.e(e)
         } catch (e: Exception) {
-            errorStateLiveData.postValue("Problem fetching movies")
+            _favouriteMovies
+                .postValue(Resource.Failure("Problem fetching movies", e))
             Timber.e(e)
         }
     }
 
-    fun loadMovieDetails(id: Int) = load(launch {
+    fun loadMovieDetails(id: Int) = load(viewModelScope.launch {
         try {
-            val data = moviesUseCase.getMovie(id)
-            movieDetailsLiveData.postValue(data)
+            moviesUseCase.getMovie(id)?.let { data ->
+                _movieDetails.postValue(Success(data))
+            }
         } catch (e: NoNetworkException) {
+            _movieDetails
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
-            errorStateLiveData.postValue("Please connect to the internet")
         } catch (e: ServerException) {
-            errorStateLiveData.postValue("MovieDb is currently down")
+            _movieDetails
+                .postValue(Resource.Failure("MovieDb is currently down", e))
             Timber.e(e)
         } catch (e: Exception) {
-            errorStateLiveData.postValue("Problem fetching movies")
+            _movieDetails
+                .postValue(Resource.Failure("Problem fetching movies", e))
             Timber.e(e)
         }
     })
@@ -81,34 +105,42 @@ class MainViewModel @Inject constructor(
         return currentFavourites?.map { it.id }?.contains(id)
     }
 
-    fun loadFavouriteMovies() = load(launch {
+    fun loadFavouriteMovies() = load(viewModelScope.launch {
         try {
-            val data = favouriteMoviesUseCase.getFavouriteMovies()
-            favouriteMoviesLiveData.postValue(data)
+            favouriteMoviesUseCase.getFavouriteMovies()?.let { data ->
+                _favouriteMovies.postValue(Success(data))
+            }
         } catch (e: NoNetworkException) {
+            _favouriteMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
-            errorStateLiveData.postValue("Please connect to the internet")
         } catch (e: ServerException) {
-            errorStateLiveData.postValue("MovieDb is currently down")
+            _favouriteMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
         } catch (e: Exception) {
-            errorStateLiveData.postValue("Problem fetching movies")
+            _favouriteMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
         }
     })
 
-    fun loadPopularMovies() = load(launch {
+    fun loadPopularMovies() = load(viewModelScope.launch {
         try {
-            val data = popularMoviesUseCase.getPopularMovies()
-            popularMoviesLiveData.postValue(data)
+            popularMoviesUseCase.getPopularMovies()?.let { data ->
+                _popularMovies.postValue(Success(data))
+            }
         } catch (e: NoNetworkException) {
+            _popularMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
-            errorStateLiveData.postValue("Please connect to the internet")
         } catch (e: ServerException) {
-            errorStateLiveData.postValue("MovieDb is currently down")
+            _popularMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
         } catch (e: Exception) {
-            errorStateLiveData.postValue("Problem fetching movies")
+            _popularMovies
+                .postValue(Resource.Failure("Please connect to the internet", e))
             Timber.e(e)
         }
     })

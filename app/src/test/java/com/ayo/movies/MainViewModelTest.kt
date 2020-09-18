@@ -58,7 +58,7 @@ class MainViewModelTest {
         whenever(addMovieToFavouritesUseCase.addMovie(movie)).doReturn(listOf(movie))
 
         //when
-        underTest.favouriteMoviesLiveData.observeForever(observer)
+        underTest._favouriteMovies.observeForever(observer)
         underTest.addMovieToFavourites(movie)
 
         //then
