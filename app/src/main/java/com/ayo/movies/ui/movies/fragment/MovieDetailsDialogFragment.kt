@@ -10,6 +10,7 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.utils.ImageLoaderUtils
+import com.ayo.movies.utils.Resource
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 
@@ -78,20 +79,31 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.movieDetailsLiveData.observe(this, Observer { handleMovieDetails(it) })
-        viewModel.errorStateLiveData.observe(this, Observer {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-        })
+        viewModel.apply {
+            movieDetails.observe(requireActivity(), Observer { handleMovieDetails(it) })
+        }
+
     }
 
-    private fun handleMovieDetails(movie: MovieDomain) {
-        this.movie = movie
-        ImageLoaderUtils.loadImage(context, movie.imgUrl, image)
-        title.text = movie.title
-        details.text = movie.overview
-        val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
-        runtime.text = runTimeText
-        showLoading(false)
+    private fun handleMovieDetails(resource: Resource<MovieDomain>) {
+        when(resource){
+            is Resource.Success -> {
+                this.movie = resource.data
+                ImageLoaderUtils.loadImage(context, movie.imgUrl, image)
+                title.text = movie.title
+                details.text = movie.overview
+                val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
+                runtime.text = runTimeText
+                showLoading(false)
+            }
+            is Resource.Loading -> showLoading(resource.loading)
+            is Resource.Failure -> handleFailure(resource)
+        }
+
+    }
+
+    private fun handleFailure(resource: Resource.Failure<*>) {
+        //todo show snackbar for failure
     }
 
     private fun loadData(movieId: Int?) {
