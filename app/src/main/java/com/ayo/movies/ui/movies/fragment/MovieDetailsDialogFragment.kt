@@ -8,15 +8,17 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
+import com.ayo.movies.databinding.FragmentMovieDetailsBinding
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.utils.ImageLoaderUtils
 import com.ayo.movies.utils.Resource
 import dagger.android.support.DaggerDialogFragment
-import kotlinx.android.synthetic.main.fragment_movie_details.*
 
 class MovieDetailsDialogFragment : DaggerDialogFragment() {
 
     private val viewModel by lazy { (activity as MainActivity).viewModel }
+    private lateinit var binding: FragmentMovieDetailsBinding
+
 
     private var movieId: Int? = null
     private lateinit var movie: MovieDomain
@@ -36,7 +38,8 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
+        binding = FragmentMovieDetailsBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,31 +51,31 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
     }
 
     private fun showLoading(loading: Boolean) {
-        loading_flipper.displayedChild = if (loading) 0 else 1
+        binding.loadingFlipper.displayedChild = if (loading) 0 else 1
     }
 
     private fun setUpView() {
         when (viewModel.isMovieFavourite(movieId)) {
             true -> {
-                favourite_switch.isChecked = true
-                favourite_switch.text = getString(R.string.remove_from_favourites)
+                binding.favouriteSwitch.isChecked = true
+                binding.favouriteSwitch.text = getString(R.string.remove_from_favourites)
             }
             false -> {
-                favourite_switch.isChecked = false
-                favourite_switch.text = getString(R.string.add_to_favourites)
+                binding.favouriteSwitch.isChecked = false
+                binding.favouriteSwitch.text = getString(R.string.add_to_favourites)
             }
         }
     }
 
     private fun setUpListener() {
-        favourite_switch.setOnCheckedChangeListener { _, isChecked ->
+        binding.favouriteSwitch.setOnCheckedChangeListener { _, isChecked ->
             viewModel.apply {
                 if (isChecked) {
                     addMovieToFavourites(movie)
-                    favourite_switch.text = getString(R.string.remove_from_favourites)
+                    binding.favouriteSwitch.text = getString(R.string.remove_from_favourites)
                 } else {
                     removeMovieFromFavourites(movie.id)
-                    favourite_switch.text = getString(R.string.add_to_favourites)
+                    binding.favouriteSwitch.text = getString(R.string.add_to_favourites)
                 }
             }
         }
@@ -89,11 +92,11 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
         when(resource){
             is Resource.Success -> {
                 this.movie = resource.data
-                ImageLoaderUtils.loadImage(context, movie.imgUrl, image)
-                title.text = movie.title
-                details.text = movie.overview
+                ImageLoaderUtils.loadImage(context, movie.imgUrl, binding.image)
+                binding.title.text = movie.title
+                binding.details.text = movie.overview
                 val runTimeText = "${movie.runtime} ${getString(R.string.minutes)}"
-                runtime.text = runTimeText
+                binding.runtime.text = runTimeText
                 showLoading(false)
             }
             is Resource.Loading -> showLoading(resource.loading)

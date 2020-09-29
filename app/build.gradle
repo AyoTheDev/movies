@@ -4,6 +4,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    buildFeatures {
+        viewBinding true
+    }
+
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     buildToolsVersion globalConfiguration["buildToolsVersion"]

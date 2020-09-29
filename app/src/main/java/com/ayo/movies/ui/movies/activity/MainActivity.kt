@@ -1,29 +1,31 @@
 package com.ayo.movies.ui.movies.activity
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
-import com.ayo.movies.R
+import androidx.lifecycle.ViewModelProvider
+import com.ayo.movies.databinding.ActivityMainBinding
 import com.ayo.movies.di.ViewModelFactory
 import com.ayo.movies.ui.movies.viewmodel.MainViewModel
 import com.ayo.movies.ui.movies.adapter.ViewPagerAdapter
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var binding: ActivityMainBinding
+
 
     val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
     private val viewPagerAdapter by lazy { ViewPagerAdapter(this, supportFragmentManager) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpView()
         loadData()
     }
@@ -36,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun setUpView() {
-        viewpager?.adapter = viewPagerAdapter
-        tabs.setupWithViewPager(viewpager)
+        binding.viewpager.adapter = viewPagerAdapter
+        binding.tabs.setupWithViewPager(binding.viewpager)
     }
 }

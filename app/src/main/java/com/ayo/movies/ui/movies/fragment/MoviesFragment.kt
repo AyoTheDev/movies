@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayo.domain.model.MovieDomain
 import com.ayo.movies.R
+import com.ayo.movies.databinding.FragmentMoviesBinding
 import com.ayo.movies.ui.movies.activity.MainActivity
 import com.ayo.movies.ui.movies.adapter.MovieListAdapter
 import com.ayo.movies.utils.Resource
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : DaggerFragment() {
 
@@ -25,6 +25,9 @@ class MoviesFragment : DaggerFragment() {
     private val adapter: MovieListAdapter by lazy { MovieListAdapter(movieListListener) }
 
     private var detailsDialog: MovieDetailsDialogFragment? = null
+
+    private lateinit var binding: FragmentMoviesBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView()
@@ -63,15 +66,16 @@ class MoviesFragment : DaggerFragment() {
         showLoading(true)
         val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration =
-            DividerItemDecoration(recyclerView?.context, layoutManager.orientation)
-        recyclerView?.addItemDecoration(dividerItemDecoration)
-        recyclerView?.layoutManager = layoutManager
-        recyclerView?.adapter = adapter
+            DividerItemDecoration(binding.recyclerView.context, layoutManager.orientation)
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movies, container, false)
+        binding = FragmentMoviesBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onDestroy() {
@@ -80,7 +84,7 @@ class MoviesFragment : DaggerFragment() {
     }
 
     private fun showLoading(loading: Boolean) {
-        loading_flipper.displayedChild = if (loading) 0 else 1
+        binding.loadingFlipper.displayedChild = if (loading) 0 else 1
     }
 
     private val movieListListener = object : MovieListAdapter.Listener {
