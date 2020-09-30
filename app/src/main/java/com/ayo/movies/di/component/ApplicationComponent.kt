@@ -4,9 +4,7 @@ import android.app.Application
 import com.ayo.api.di.NetworkModule
 import com.ayo.movies.App
 import com.ayo.movies.di.builder.ActivityBuilder
-import com.ayo.movies.di.builder.FragmentBuilder
 import com.ayo.movies.di.module.ApplicationModule
-import com.ayo.movies.di.module.RepositoryModule
 import com.ayo.movies.di.module.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
@@ -20,10 +18,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         NetworkModule::class,
-        RepositoryModule::class,
         ViewModelModule::class,
-        ActivityBuilder::class,
-        FragmentBuilder::class
+        ActivityBuilder::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<App> {
@@ -32,10 +28,8 @@ interface ApplicationComponent : AndroidInjector<App> {
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-
         fun applicationModule(applicationModule: ApplicationModule): Builder
         fun networkModule(networkModule: NetworkModule): Builder
-        fun repositoryModule(repositoryModule: RepositoryModule): Builder
         fun build(): ApplicationComponent
     }
 

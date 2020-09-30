@@ -3,7 +3,6 @@ package com.ayo.movies
 import com.ayo.api.di.NetworkModule
 import com.ayo.movies.di.component.DaggerApplicationComponent
 import com.ayo.movies.di.module.ApplicationModule
-import com.ayo.movies.di.module.RepositoryModule
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -20,7 +19,6 @@ class App : DaggerApplication() {
             .application(this)
             .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
-            .repositoryModule(RepositoryModule())
             .build()
     }
 }

@@ -2,7 +2,7 @@ package com.ayo.movies
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.ayo.domain.model.MovieDomain
+import com.ayo.domain.model.UserDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
 import com.ayo.movies.ui.movies.viewmodel.MainViewModel
@@ -11,6 +11,10 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,60 +32,30 @@ class MainViewModelTest {
     private lateinit var underTest: MainViewModel
 
     @Mock
-    lateinit var favouriteMoviesUseCase: FavouriteMoviesUseCase
-
-    @Mock
-    lateinit var addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase
-
-    @Mock
-    lateinit var removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase
-
-    @Mock
-    lateinit var popularMoviesUseCase: PopularMoviesUseCase
-
-    @Mock
-    lateinit var moviesUseCase: MovieUseCase
+    lateinit var useCase: UserUseCase
 
     @Before
     fun setUp() {
-        underTest = MainViewModel(
-            TestContextProvider(), favouriteMoviesUseCase, addMovieToFavouritesUseCase,
-            removeMovieFromFavouritesUseCase, popularMoviesUseCase, moviesUseCase
-        )
-
+        underTest = MainViewModel(TestContextProvider(), useCase)
     }
 
+    @ExperimentalCoroutinesApi
     @Test
-    fun addMovieToFavouritesSuccess() {
+    fun getUsers(): Unit = runBlockingTest  {
+
         //given
-        val movie = dummyMovie
-        val observer: Observer<Resource<List<MovieDomain>>> = mock()
-        whenever(addMovieToFavouritesUseCase.addMovie(movie)).doReturn(listOf(movie))
+        val observer: Observer<Resource<List<UserDomain>>> = mock()
+        whenever(useCase.getUsers()).doReturn(mockFlow)
 
         //when
-        underTest.favouriteMovies.observeForever(observer)
-        underTest.addMovieToFavourites(movie)
+        underTest.usersLiveData.observeForever(observer)
+        underTest.loadUsers()
 
         //then
-        verify(addMovieToFavouritesUseCase).addMovie(movie)
-        verify(observer).onChanged(Resource.Success(listOf(movie)))
+        verify(observer).onChanged(Resource.Success(emptyList()))
     }
 
-    @Test(expected = Exception::class)
-    fun addMovieToFavouritesError() {
-        //given
-        val error = Exception()
-        val observer: Observer<Resource<List<MovieDomain>>> = mock()
-
-        whenever(addMovieToFavouritesUseCase.addMovie(dummyMovie)).thenThrow(error)
-
-        underTest.favouriteMovies.observeForever(observer)
-        underTest.addMovieToFavourites(dummyMovie)
-
-        verify(observer).onChanged(Resource.Failure("test fail"))
-    }
-
-    private val dummyMovie = MovieDomain(1, "movie", "url", "overview", 1)
+    private val mockFlow: Flow<List<UserDomain>> = flow { emit(emptyList()) }
 
 }
 

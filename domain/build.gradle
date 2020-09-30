@@ -28,14 +28,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':api')
-    implementation project(':data')
 
     def dependencies = rootProject.ext.applicationDependencies
     def testDependencies = rootProject.ext.testDependencies
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
-
+    implementation dependencies.kotlinCoroutinesCore
     implementation dependencies.dagger
     implementation dependencies.daggerSupport
     kapt dependencies.daggerProcessor

@@ -1,7 +1,7 @@
 package com.ayo.api.di
 
-import com.ayo.api.endpoints.MovieDbEndpoints
-import com.ayo.api.services.MovieDbService
+import com.ayo.api.endpoints.EndPoints
+import com.ayo.api.services.StackApiService
 import dagger.Module
 import dagger.Provides
 
@@ -9,5 +9,5 @@ import dagger.Provides
 class ServiceModule {
 
     @Provides
-    fun provideMovieDbService(movieDbEndpoints: MovieDbEndpoints) = MovieDbService(movieDbEndpoints)
+    fun provideStackApiService(endPoints: EndPoints) = StackApiService(endPoints)
 }

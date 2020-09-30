@@ -1,10 +1,9 @@
 package com.ayo.api.di
 
 import android.content.Context
-import com.ayo.api.endpoints.MovieDbEndpoints
+import com.ayo.api.endpoints.EndPoints
 import com.ayo.api.interceptors.NetworkConnectivityInterceptor
 import com.ayo.api.interceptors.NetworkResponseInterceptor
-import com.ayo.api.utils.addQueryParameterInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,14 +16,12 @@ class NetworkModule {
 
     companion object {
         private const val TIME_OUT = 1L
-        private const val BASE_URL = "https://api.themoviedb.org/"
-        private const val API_KEY_FIELD = "api_key"
-        private const val API_KEY = "d3b018581c65b4ac18d55a61391e87ac"
+        private const val BASE_URL = "https://api.stackexchange.com/2.2/"
     }
 
     @Provides
-    fun provideMovieDbEndpoint(retrofit: Retrofit): MovieDbEndpoints {
-        return retrofit.create(MovieDbEndpoints::class.java)
+    fun provideEndpoints(retrofit: Retrofit): EndPoints {
+        return retrofit.create(EndPoints::class.java)
     }
 
     @Provides
@@ -41,7 +38,6 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(NetworkConnectivityInterceptor(context))
             .addInterceptor(NetworkResponseInterceptor())
-            .addQueryParameterInterceptor(API_KEY_FIELD, API_KEY)
             .connectTimeout(TIME_OUT, TimeUnit.MINUTES)
             .build()
     }

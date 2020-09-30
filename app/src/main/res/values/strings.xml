@@ -1,10 +1,20 @@
 <resources>
-    <string name="app_name">Movies</string>
-    <string name="favourite">Favourite</string>
-    <string name="popular">Popular</string>
-    <string name="add_to_favourites">Add to favourites</string>
-    <string name="remove_from_favourites">Remove from favourites</string>
-    <string name="error_msg_1">Problem fetching movies</string>
-    <string name="error_msg_2">Problem fetching movie details</string>
+    <string name="error_msg_1">Problem fetching users</string>
+    <string name="error_msg_2">Problem fetching user details</string>
     <string name="minutes">minutes</string>
+
+    <string name="search">Search</string>
+    <string name="profile_image">profile image</string>
+    <string name="search_by_name">Search by name</string>
+
+    <string name="location_unavailable">Location unavailable</string>
+    <string name="age_unavailable">age unavailable</string>
+
+    <string name="user_name">User Name: %s</string>
+    <string name="reputation">Reputation: %d</string>
+    <string name="badges">Gold: %d, Silver: %d, Bronze: %d</string>
+    <string name="location">Location: %s</string>
+    <string name="age">Age: %d</string>
+    <string name="creation_date">Creation Date: %s</string>
+
 </resources>
