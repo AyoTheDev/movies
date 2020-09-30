@@ -12,14 +12,12 @@ import javax.inject.Inject
 class UserUseCase @Inject constructor(private val apiService: StackApiService) {
 
     fun getUsers(): Flow<List<UserDomain>> = flow {
-        apiService.getUsers()?.items?.let { users ->
-            emit(users.toDomain().sortedBy { it.displayName })
-        }
+        apiService.getUsers()?.items?.let { users -> emit(users.toDomain()) }
     }
 
     fun getUsersByName(name: String): Flow<List<UserDomain>> = flow {
         apiService.getUsersByName(name)?.items?.let { users ->
-            emit(users.toDomain().sortedBy { it.displayName })
+            emit(users.toDomain())
         }
     }
 }
