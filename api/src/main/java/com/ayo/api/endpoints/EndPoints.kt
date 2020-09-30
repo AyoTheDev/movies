@@ -8,6 +8,7 @@ import retrofit2.http.Query
 
 interface EndPoints {
 
+    //max operator doesnt seem to work
     @GET("users?order=desc&sort=reputation&max=20&site=stackoverflow")
     suspend fun getUsersByName(@Query("inname") name: String): Response<ApiResponse>
 
