@@ -15,7 +15,7 @@ import timber.log.Timber
 
 object ImageLoaderUtils {
 
-    fun loadImage(context: Context?, imgUrl: String, imageView: ImageView) {
+    fun loadImage(context: Context?, imgUrl: String?, imageView: ImageView) {
         context?.let { ctx ->
             Glide.with(ctx)
                 .load(imgUrl)

@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.ayo.movies.ui.movies.listeners
+package com.ayo.movies.ui.breakingbad.listeners
 
 import android.text.Editable
 import android.text.TextWatcher

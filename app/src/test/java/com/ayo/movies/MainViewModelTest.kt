@@ -2,10 +2,9 @@ package com.ayo.movies
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.ayo.domain.model.UserDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
-import com.ayo.movies.ui.movies.viewmodel.MainViewModel
+import com.ayo.movies.ui.breakingbad.viewmodel.MainViewModel
 import com.ayo.movies.utils.Resource
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -32,7 +31,7 @@ class MainViewModelTest {
     private lateinit var underTest: MainViewModel
 
     @Mock
-    lateinit var useCase: UserUseCase
+    lateinit var useCase: CharacterUseCase
 
     @Before
     fun setUp() {
@@ -45,11 +44,11 @@ class MainViewModelTest {
 
         //given
         val observer: Observer<Resource<List<UserDomain>>> = mock()
-        whenever(useCase.getUsers()).doReturn(mockFlow)
+        whenever(useCase.getCharacters()).doReturn(mockFlow)
 
         //when
-        underTest.usersLiveData.observeForever(observer)
-        underTest.loadUsers()
+        underTest.charactersLiveData.observeForever(observer)
+        underTest.loadCharacters()
 
         //then
         verify(observer).onChanged(Resource.Success(emptyList()))

@@ -1,7 +1,7 @@
 package com.ayo.api.di
 
 import com.ayo.api.endpoints.EndPoints
-import com.ayo.api.services.StackApiService
+import com.ayo.api.services.ApiService
 import dagger.Module
 import dagger.Provides
 
@@ -9,5 +9,5 @@ import dagger.Provides
 class ServiceModule {
 
     @Provides
-    fun provideStackApiService(endPoints: EndPoints) = StackApiService(endPoints)
+    fun provideApiService(endPoints: EndPoints) = ApiService(endPoints)
 }

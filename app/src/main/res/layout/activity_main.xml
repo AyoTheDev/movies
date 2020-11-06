@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.movies.activity.MainActivity">
+        tools:context=".ui.breakingbad.activity.MainActivity">
 
 
     <EditText
@@ -30,6 +30,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/search_box"
             app:layout_constraintEnd_toEndOf="parent" />
 
+    <Spinner
+            android:id="@+id/season_selector"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
 
     <ProgressBar
             android:id="@+id/loading"
@@ -49,5 +57,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_box" />
+            app:layout_constraintTop_toBottomOf="@+id/season_selector" />
 </androidx.constraintlayout.widget.ConstraintLayout>

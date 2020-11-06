@@ -16,7 +16,7 @@ class NetworkModule {
 
     companion object {
         private const val TIME_OUT = 1L
-        private const val BASE_URL = "https://api.stackexchange.com/2.2/"
+        private const val BASE_URL = "https://breakingbadapi.com/"
     }
 
     @Provides
