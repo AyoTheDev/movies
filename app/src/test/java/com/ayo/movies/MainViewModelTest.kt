@@ -2,6 +2,7 @@ package com.ayo.movies
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.ayo.domain.model.CharacterDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
 import com.ayo.movies.ui.breakingbad.viewmodel.MainViewModel
@@ -40,10 +41,10 @@ class MainViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getUsers(): Unit = runBlockingTest  {
+    fun getCharacters(): Unit = runBlockingTest  {
 
         //given
-        val observer: Observer<Resource<List<UserDomain>>> = mock()
+        val observer: Observer<Resource<List<CharacterDomain>>> = mock()
         whenever(useCase.getCharacters()).doReturn(mockFlow)
 
         //when
@@ -54,7 +55,7 @@ class MainViewModelTest {
         verify(observer).onChanged(Resource.Success(emptyList()))
     }
 
-    private val mockFlow: Flow<List<UserDomain>> = flow { emit(emptyList()) }
+    private val mockFlow: Flow<List<CharacterDomain>> = flow { emit(emptyList()) }
 
 }
 
