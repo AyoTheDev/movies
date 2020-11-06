@@ -15,26 +15,32 @@ class CharacterUseCase @Inject constructor(private val apiService: ApiService) {
         apiService.getCharacters()?.let { characters -> emit(characters.toDomain()) }
     }
 
-    fun getCharactersByName(name: String): Flow<List<CharacterDomain>> = flow {
-        apiService.getCharacters()?.let { characters ->
-            emit(characters.filter { it.name.toLowerCase().contains(name.toLowerCase()) }
-                .toDomain())
-        }
-    }
-
-    fun getCharactersBySeason(season: Int): Flow<List<CharacterDomain>> = flow {
-        apiService.getCharacters()?.let { characters ->
-            emit(characters.filter { it.appearance.contains(season) }.toDomain())
-        }
-    }
-
-    fun getCharactersBySeasonAndName(season: Int, name: String): Flow<List<CharacterDomain>> =
+    fun getCharactersFiltered(name: String? = null, season: Int? = null): Flow<List<CharacterDomain>> =
         flow {
             apiService.getCharacters()?.let { characters ->
-                emit(characters.filter {
-                    it.appearance.contains(season) &&
-                            it.name.toLowerCase().contains(name.toLowerCase())
-                }.toDomain())
+                val chars =
+                    if (season == 0 && name != null) {
+                        characters.filter { it.name.toLowerCase().contains(name.toLowerCase()) }
+                            .toDomain()
+                    }
+                    else if (season == 0 && name == null){
+                        characters.map { it.toDomain() }
+                    }
+                    else when {
+                        name != null && season == null ->
+                            characters.filter { it.name.toLowerCase().contains(name.toLowerCase()) }
+                                .toDomain()
+                        name == null && season != null ->
+                            characters.filter { it.appearance.contains(season) }.toDomain()
+                        name != null && season != null ->
+                            characters.filter {
+                                it.name.toLowerCase()
+                                    .contains(name!!.toLowerCase()) && it.appearance.contains(season)
+                            }
+                                .toDomain()
+                        else -> characters.map { it.toDomain() }
+                    }
+                emit(chars)
             }
         }
 }

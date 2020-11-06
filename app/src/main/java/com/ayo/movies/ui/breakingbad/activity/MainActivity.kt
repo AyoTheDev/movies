@@ -74,7 +74,7 @@ class MainActivity : DaggerAppCompatActivity() {
         }
         binding.seasonSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                viewModel.loadCharacters(binding.searchBox.text.toString(), position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -88,7 +88,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private val searchQueryListener =
         SearchQueryListener(this.lifecycle,
-            { queryText -> queryText.let { if (it.isNotBlank()) viewModel.loadCharacters(it) } },
+            { queryText -> queryText.let {
+                if (it.isNotBlank()) viewModel.loadCharacters(it, binding.seasonSelector.selectedItemPosition) }
+            },
             { viewModel.loadCharacters() })
 
 

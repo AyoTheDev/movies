@@ -30,49 +30,12 @@ class MainViewModel @Inject constructor(
         loadCharacters()
     }
 
-//    fun loadCharacterBySeasonAndName(season: Int?, name: String?) {
-//        load(launch {
-//            try {
-//                val data =
-//                    when {
-//                        name.isNullOrBlank() && (season == 0 || season == null)
-//                        -> characterUseCase.getCharacters()
-//                        (season == 0 || season == null) && !name.isNullOrBlank()
-//                        -> characterUseCase.getCharactersByName(name)
-//                        name.isNullOrBlank() && season != null && season != 0 -> characterUseCase.getCharactersBySeason(season)
-//                        else -> {
-//                            characterUseCase.getCharactersBySeasonAndName(season!!, name!!)
-//                        }
-//
-//                    }
-//                if (name.isNullOrBlank() || season == 0 || season == null)
-//                    characterUseCase.getCharacters()
-//                else
-//                    characterUseCase.getCharactersBySeasonAndName(season, name)
-//
-//                data.collect { users -> _charactersListLiveData.postValue(Success(users)) }
-//            } catch (e: NoNetworkException) {
-//                _charactersListLiveData
-//                    .postValue(Resource.Failure("Please connect to the internet", e))
-//                Timber.e(e)
-//            } catch (e: ServerException) {
-//                _charactersListLiveData
-//                    .postValue(Resource.Failure("Stack API is currently down", e))
-//                Timber.e(e)
-//            } catch (e: Exception) {
-//                _charactersListLiveData
-//                    .postValue(Resource.Failure("Problem fetching characters", e))
-//                Timber.e(e)
-//            }
-//        })
-//    }
-
-    fun loadCharacters(name: String? = null) {
+    fun loadCharacters(name: String? = null, season: Int? = null) {
         load(launch {
             try {
-                val data = when (name) {
-                    null -> characterUseCase.getCharacters()
-                    else -> characterUseCase.getCharactersByName(name)
+                val data = when  {
+                    name != null || season != null -> characterUseCase.getCharactersFiltered(name, season)
+                    else -> characterUseCase.getCharacters()
                 }
                 data.collect { users -> _charactersListLiveData.postValue(Success(users)) }
             } catch (e: NoNetworkException) {
