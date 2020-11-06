@@ -55,6 +55,22 @@ class MainViewModelTest {
         verify(observer).onChanged(Resource.Success(emptyList()))
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun getCharactersFiltered(): Unit = runBlockingTest  {
+
+        //given
+        val observer: Observer<Resource<List<CharacterDomain>>> = mock()
+        whenever(useCase.getCharactersFiltered()).doReturn(mockFlow)
+
+        //when
+        underTest.charactersLiveData.observeForever(observer)
+        underTest.loadCharacters("name", 1)
+
+        //then
+        verify(useCase).getCharactersFiltered("name", 1)
+    }
+
     private val mockFlow: Flow<List<CharacterDomain>> = flow { emit(emptyList()) }
 
 }
