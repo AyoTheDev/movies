@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
+    signingConfigs {
+        test {
+            storeFile file('test')
+            storePassword 'test'
+            keyAlias 'test'
+            keyPassword 'test'
+        }
+    }
     buildFeatures {
         viewBinding true
     }
@@ -21,9 +29,10 @@ android {
         versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
