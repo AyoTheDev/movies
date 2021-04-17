@@ -7,4 +7,5 @@
     <color name="gradient_end">#380036</color>
     <color name="white">#FAF5F5</color>
     <color name="gray">#707070</color>
+    <color name="navSelected">#C84EDD</color>
 </resources>

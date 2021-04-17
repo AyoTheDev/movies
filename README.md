@@ -1,6 +1,6 @@
 # Breaking Bad Campus Tours
 
-*This project retrofits an older sample project made by myself to satisfy the requirements of the task.*
+*This code branches from a guideline project that I built a few years ago and still maintain with best practices to serve as a quick start for any new projects I work on.*
 
 This Android app project was made using Kotlin, it uses the breaking bad API found here: https://breakingbadapi.com/ that pretend to be campuses. It contains a map
 button in the toolbar (which does nothing when clicked) and it also has a bottom navigation bar, where each item is selectable but the page does not change.
