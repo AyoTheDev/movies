@@ -34,8 +34,9 @@ ext {
             kotlinCoroutinesCore    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}",
             kotlinCoroutinesAndroid : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesVersion}",
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
-            gson                   : "com.google.code.gson:gson:${gsonVersion}",
+            gson                    : "com.google.code.gson:gson:${gsonVersion}",
             supportRecyclerView     : "androidx.recyclerview:recyclerview:1.0.0",
+            cardView                : "androidx.cardview:cardview:1.0.0",
             supportDesign           : "com.google.android.material:material:1.0.0-rc01",
             appCompat               : "androidx.appcompat:appcompat:${appcompatVersion}",
             viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleVersion}",
@@ -74,15 +75,15 @@ ext {
     ]
 
     testDependencies = [
-            mockito                 : "org.mockito:mockito-core:${mockitoVersion}",
-            mockitoAndroid          : "org.mockito:mockito-android:${mockitoVersion}",
-            mockitoInLine           : "org.mockito:mockito-inline:${mockitoVersion}",
-            junit                   : "junit:junit:4.12",
-            runner                  : "com.android.support.test:runner:1.0.2",
-            mockitoKotlin           : "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1",
-            archCore                : "android.arch.core:core-testing:1.1.1",
-            okHttpMock              : "com.squareup.okhttp3:mockwebserver:${okHttpVersion}",
-            jetBrainsAnnotations    : "org.jetbrains:annotations:16.0.1"
+            mockito             : "org.mockito:mockito-core:${mockitoVersion}",
+            mockitoAndroid      : "org.mockito:mockito-android:${mockitoVersion}",
+            mockitoInLine       : "org.mockito:mockito-inline:${mockitoVersion}",
+            junit               : "junit:junit:4.12",
+            runner              : "com.android.support.test:runner:1.0.2",
+            mockitoKotlin       : "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1",
+            archCore            : "android.arch.core:core-testing:1.1.1",
+            okHttpMock          : "com.squareup.okhttp3:mockwebserver:${okHttpVersion}",
+            jetBrainsAnnotations: "org.jetbrains:annotations:16.0.1"
     ]
 
 }

@@ -2,10 +2,10 @@ package com.ayo.movies
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.ayo.domain.model.CharacterDomain
+import com.ayo.domain.model.CampusDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
-import com.ayo.movies.ui.breakingbad.viewmodel.MainViewModel
+import com.ayo.movies.ui.breakingbadcampustours.viewmodel.MainViewModel
 import com.ayo.movies.utils.Resource
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -44,34 +44,18 @@ class MainViewModelTest {
     fun getCharacters(): Unit = runBlockingTest  {
 
         //given
-        val observer: Observer<Resource<List<CharacterDomain>>> = mock()
+        val observer: Observer<Resource<List<CampusDomain>>> = mock()
         whenever(useCase.getCharacters()).doReturn(mockFlow)
 
         //when
-        underTest.charactersLiveData.observeForever(observer)
+        underTest.campusLiveData.observeForever(observer)
         underTest.loadCharacters()
 
         //then
         verify(observer).onChanged(Resource.Success(emptyList()))
     }
 
-    @ExperimentalCoroutinesApi
-    @Test
-    fun getCharactersFiltered(): Unit = runBlockingTest  {
-
-        //given
-        val observer: Observer<Resource<List<CharacterDomain>>> = mock()
-        whenever(useCase.getCharactersFiltered()).doReturn(mockFlow)
-
-        //when
-        underTest.charactersLiveData.observeForever(observer)
-        underTest.loadCharacters("name", 1)
-
-        //then
-        verify(useCase).getCharactersFiltered("name", 1)
-    }
-
-    private val mockFlow: Flow<List<CharacterDomain>> = flow { emit(emptyList()) }
+    private val mockFlow: Flow<List<CampusDomain>> = flow { emit(emptyList()) }
 
 }
 

@@ -15,6 +15,10 @@
     <string name="occupation">Occupation: %s</string>
     <string name="status">Status: %s</string>
     <string name="season_appearance">Season appearance: %s</string>
+    <string name="tour_count">3 tours</string>
+    <string name="tours">Tours</string>
+    <string name="browse">Browse</string>
+    <string name="more">More</string>
 
     <string-array name="season_options">
         <item>All</item>
