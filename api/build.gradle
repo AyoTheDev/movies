@@ -54,10 +54,17 @@ dependencies {
     kapt dependencies.daggerProcessor
     kapt dependencies.daggerCompiler
 
+    implementation dependencies.rxjava
+    implementation dependencies.adapterRxJava
+    implementation dependencies.rxAndroid
+
     testImplementation testDependencies.mockito
     testImplementation testDependencies.mockitoAndroid
     testImplementation testDependencies.mockitoInLine
     testImplementation testDependencies.mockitoKotlin
-
-
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
