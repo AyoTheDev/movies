@@ -64,6 +64,7 @@ class MovieDetailsDialogFragment : DaggerDialogFragment() {
                 binding.favouriteSwitch.isChecked = false
                 binding.favouriteSwitch.text = getString(R.string.add_to_favourites)
             }
+            else -> {}
         }
     }
 

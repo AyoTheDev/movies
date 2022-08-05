@@ -13,7 +13,8 @@
             android:theme="@style/AppTheme">
         <activity
                 android:screenOrientation="portrait"
-                android:name="com.ayo.movies.ui.movies.activity.MainActivity">
+                android:name="com.ayo.movies.ui.movies.activity.MainActivity"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
