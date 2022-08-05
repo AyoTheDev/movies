@@ -7,6 +7,8 @@ import com.ayo.data.SharedPrefs
 import com.ayo.data.model.MovieData
 import com.ayo.data.model.toDomain
 import com.google.gson.Gson
+import io.reactivex.Observable
+import java.util.*
 import javax.inject.Inject
 
 class MovieDbRepository @Inject constructor(
@@ -31,7 +33,7 @@ class MovieDbRepository @Inject constructor(
         return newSet
     }
 
-    suspend fun getMovieDetails(id: Int): MovieApi? {
+    fun getMovieDetails(id: Int): Observable<MovieApi> {
         return service.getMovie(id)
     }
 
@@ -39,7 +41,7 @@ class MovieDbRepository @Inject constructor(
         return sharedPrefs.favourites
     }
 
-    suspend fun getPopularMovies(): PopularMovieApi? {
+    fun getPopularMovies(): Observable<PopularMovieApi> {
         return service.getPopularMovies()
     }
 }

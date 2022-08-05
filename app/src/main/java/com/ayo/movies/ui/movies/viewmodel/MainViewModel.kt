@@ -1,5 +1,6 @@
 package com.ayo.movies.ui.movies.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,7 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
+import com.ayo.movies.utils.Event
 import com.ayo.movies.utils.Resource
 import com.ayo.movies.utils.Resource.Success
 import kotlinx.coroutines.launch
@@ -82,9 +84,13 @@ class MainViewModel @Inject constructor(
 
     fun loadMovieDetails(id: Int) = load(viewModelScope.launch {
         try {
-            moviesUseCase.getMovie(id)?.let { data ->
+            /*moviesUseCase.getMovie(id)?.let { data ->
                 _movieDetails.postValue(Success(data))
-            }
+            }*/
+            val response = moviesUseCase.getMovie(id)
+
+            Log.d("aaaa ===> ", "moviesUseCase :: succeed")
+
         } catch (e: NoNetworkException) {
             _movieDetails
                 .postValue(Resource.Failure("Please connect to the internet", e))
@@ -127,9 +133,11 @@ class MainViewModel @Inject constructor(
 
     fun loadPopularMovies() = load(viewModelScope.launch {
         try {
-            popularMoviesUseCase.getPopularMovies()?.let { data ->
+            /*popularMoviesUseCase.getPopularMovies()?.let { data ->
                 _popularMovies.postValue(Success(data))
-            }
+            }*/
+            val response = popularMoviesUseCase.getPopularMovies()
+            Log.d("aaaa ===> ", "popularMoviesUseCase :: succeed")
         } catch (e: NoNetworkException) {
             _popularMovies
                 .postValue(Resource.Failure("Please connect to the internet", e))

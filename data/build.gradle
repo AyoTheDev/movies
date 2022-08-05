@@ -25,6 +25,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     def dependencies = rootProject.ext.applicationDependencies
+    def apiDependencies = rootProject.ext.apiDependencies
 
     implementation project(':api')
 
@@ -37,7 +38,10 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-
+    implementation apiDependencies.rxjava
+    implementation apiDependencies.adapterRxJava
+    implementation apiDependencies.rxAndroid
+    implementation apiDependencies.rxAndroidNetworking
 }
 repositories {
     mavenCentral()

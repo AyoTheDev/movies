@@ -1,5 +1,7 @@
 package com.ayo.api.model
 
+import com.google.gson.annotations.SerializedName
+
 data class MovieApi(
     val id: Int,
     val title: String,

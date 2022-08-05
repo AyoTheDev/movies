@@ -57,6 +57,7 @@ dependencies {
     implementation dependencies.rxjava
     implementation dependencies.adapterRxJava
     implementation dependencies.rxAndroid
+    implementation dependencies.rxAndroidNetworking
 
     testImplementation testDependencies.mockito
     testImplementation testDependencies.mockitoAndroid

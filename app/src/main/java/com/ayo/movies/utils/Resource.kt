@@ -1,5 +1,6 @@
 package com.ayo.movies.utils
 
+import io.reactivex.Observable
 import java.lang.Exception
 
 sealed class Resource<T> {

@@ -30,6 +30,7 @@ dependencies {
 
     def dependencies = rootProject.ext.applicationDependencies
     def testDependencies = rootProject.ext.testDependencies
+    def apiDependencies = rootProject.ext.apiDependencies
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
@@ -42,7 +43,10 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-
+    implementation apiDependencies.rxjava
+    implementation apiDependencies.adapterRxJava
+    implementation apiDependencies.rxAndroid
+    implementation apiDependencies.rxAndroidNetworking
 }
 repositories {
     mavenCentral()
