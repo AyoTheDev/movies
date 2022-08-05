@@ -10,7 +10,6 @@ import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
-import com.ayo.movies.utils.Event
 import com.ayo.movies.utils.Resource
 import com.ayo.movies.utils.Resource.Success
 import kotlinx.coroutines.launch
@@ -88,8 +87,6 @@ class MainViewModel @Inject constructor(
                 _movieDetails.postValue(Success(data))
             }*/
             val response = moviesUseCase.getMovie(id)
-
-            Log.d("aaaa ===> ", "moviesUseCase :: succeed")
 
         } catch (e: NoNetworkException) {
             _movieDetails
