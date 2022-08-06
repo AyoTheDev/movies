@@ -43,6 +43,9 @@ class MoviesFragment : DaggerFragment() {
                 PageType.FAVOURITES ->
                     favouriteMovies.observe(requireActivity(), Observer { handleMovieData(it) })
             }
+            loadingViewVisible.observe(viewLifecycleOwner, Observer {
+                showLoading(it.peekContent())
+            })
         }
     }
 

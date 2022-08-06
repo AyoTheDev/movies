@@ -6,24 +6,31 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ayo.api.exceptions.NoNetworkException
 import com.ayo.api.exceptions.ServerException
+import com.ayo.api.interceptors.NetworkResponseInterceptor
+import com.ayo.api.utils.SchedulerProvider
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
 import com.ayo.movies.utils.Resource
 import com.ayo.movies.utils.Resource.Success
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     coroutineContextProvider: CoroutineContextProvider,
+    schedulerProvider: SchedulerProvider,
+    compositeDisposable: CompositeDisposable,
     private val favouriteMoviesUseCase: FavouriteMoviesUseCase,
     private val addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase,
     private val removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase,
     private val popularMoviesUseCase: PopularMoviesUseCase,
     private val moviesUseCase: MovieUseCase
-) : BaseViewModel(coroutineContextProvider) {
+) : BaseViewModel(coroutineContextProvider, compositeDisposable, schedulerProvider) {
 
     val favouriteMovies: LiveData<Resource<List<MovieDomain>>>
         get() = _favouriteMovies
@@ -82,25 +89,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun loadMovieDetails(id: Int) = load(viewModelScope.launch {
-        try {
-            /*moviesUseCase.getMovie(id)?.let { data ->
-                _movieDetails.postValue(Success(data))
-            }*/
-            val response = moviesUseCase.getMovie(id)
 
-        } catch (e: NoNetworkException) {
-            _movieDetails
-                .postValue(Resource.Failure("Please connect to the internet", e))
-            Timber.e(e)
-        } catch (e: ServerException) {
-            _movieDetails
-                .postValue(Resource.Failure("MovieDb is currently down", e))
-            Timber.e(e)
-        } catch (e: Exception) {
-            _movieDetails
-                .postValue(Resource.Failure("Problem fetching movies", e))
-            Timber.e(e)
-        }
     })
 
     fun isMovieFavourite(id: Int?): Boolean? {
@@ -129,24 +118,8 @@ class MainViewModel @Inject constructor(
     })
 
     fun loadPopularMovies() = load(viewModelScope.launch {
-        try {
-            /*popularMoviesUseCase.getPopularMovies()?.let { data ->
-                _popularMovies.postValue(Success(data))
-            }*/
-            val response = popularMoviesUseCase.getPopularMovies()
-            Log.d("aaaa ===> ", "popularMoviesUseCase :: succeed")
-        } catch (e: NoNetworkException) {
-            _popularMovies
-                .postValue(Resource.Failure("Please connect to the internet", e))
-            Timber.e(e)
-        } catch (e: ServerException) {
-            _popularMovies
-                .postValue(Resource.Failure("Please connect to the internet", e))
-            Timber.e(e)
-        } catch (e: Exception) {
-            _popularMovies
-                .postValue(Resource.Failure("Please connect to the internet", e))
-            Timber.e(e)
+        callInteract(popularMoviesUseCase.getPopularMovies()) { it ->
+
         }
     })
 }
