@@ -7,10 +7,13 @@ import com.ayo.domain.usecase.*
 import com.ayo.movies.common.TestContextProvider
 import com.ayo.movies.ui.movies.viewmodel.MainViewModel
 import com.ayo.movies.utils.Resource
+import com.ayo.movies.utils.TestSchedulerProvider
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +24,11 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
+
+    private val compositeDisposable = CompositeDisposable()
+
+    private val testScheduler = TestScheduler()
+    private val testSchedulerProvider = TestSchedulerProvider(testScheduler)
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -45,7 +53,7 @@ class MainViewModelTest {
     @Before
     fun setUp() {
         underTest = MainViewModel(
-            TestContextProvider(), favouriteMoviesUseCase, addMovieToFavouritesUseCase,
+            TestContextProvider(),testSchedulerProvider, compositeDisposable, favouriteMoviesUseCase, addMovieToFavouritesUseCase,
             removeMovieFromFavouritesUseCase, popularMoviesUseCase, moviesUseCase
         )
 

@@ -9,6 +9,7 @@ import com.ayo.api.exceptions.ServerException
 import com.ayo.api.interceptors.NetworkResponseInterceptor
 import com.ayo.api.utils.SchedulerProvider
 import com.ayo.domain.model.MovieDomain
+import com.ayo.domain.model.toDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
 import com.ayo.movies.common.CoroutineContextProvider
@@ -119,7 +120,7 @@ class MainViewModel @Inject constructor(
 
     fun loadPopularMovies() = load(viewModelScope.launch {
         callInteract(popularMoviesUseCase.getPopularMovies()) { it ->
-
+            _popularMovies.postValue(Success(it.toDomain()))
         }
     })
 }

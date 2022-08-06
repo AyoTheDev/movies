@@ -14,5 +14,4 @@ class AddMovieToFavouritesUseCase
         movieDbRepository
             .addMovieToFavourites(movie.toDataLayer())
             .toDomain(gson)
-
 }
