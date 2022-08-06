@@ -66,7 +66,6 @@ class MoviesFragment : DaggerFragment() {
     }
 
     private fun setUpView() {
-        showLoading(true)
         val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration =
             DividerItemDecoration(binding.recyclerView.context, layoutManager.orientation)

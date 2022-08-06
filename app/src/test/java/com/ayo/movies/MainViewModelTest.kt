@@ -56,7 +56,6 @@ class MainViewModelTest {
             TestContextProvider(),testSchedulerProvider, compositeDisposable, favouriteMoviesUseCase, addMovieToFavouritesUseCase,
             removeMovieFromFavouritesUseCase, popularMoviesUseCase, moviesUseCase
         )
-
     }
 
     @Test
