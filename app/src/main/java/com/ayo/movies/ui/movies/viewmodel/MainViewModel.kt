@@ -90,7 +90,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun loadMovieDetails(id: Int) = load(viewModelScope.launch {
-
+        callInteract(moviesUseCase.getMovie(id)) {
+            _movieDetails.postValue(Success(it.toDomain()))
+        }
     })
 
     fun isMovieFavourite(id: Int?): Boolean? {
