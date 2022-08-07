@@ -16,7 +16,7 @@ ext {
     retrofitVersion = '2.9.0'
     gsonVersion = '2.9.1'
     okHttpVersion = '4.10.0'
-    mockitoVersion = '2.13.0'
+    mockitoVersion = '3.11.1'
     roomVersion = '2.4.3'
     constraintLayoutVersion = '2.1.4'
     timberVersion = '5.0.1'

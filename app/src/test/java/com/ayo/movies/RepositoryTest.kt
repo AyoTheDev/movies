@@ -7,6 +7,7 @@ import com.ayo.data.SharedPrefs
 import com.ayo.data.model.MovieData
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.doReturn
+import io.reactivex.Observable
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -74,7 +75,7 @@ class RepositoryTest {
     @Test
     fun getMovieDetails() = runBlocking {
         //given
-        `when`(service.getMovie(1)).thenReturn(dummyMovieApi)
+        `when`(service.getMovie(1)).thenReturn(Observable.just(dummyMovieApi))
 
         //when
         val result = underTest.getMovieDetails(1)
