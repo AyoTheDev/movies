@@ -75,7 +75,7 @@ class MoviesFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = FragmentMoviesBinding.inflate(layoutInflater)
         return binding.root
     }
