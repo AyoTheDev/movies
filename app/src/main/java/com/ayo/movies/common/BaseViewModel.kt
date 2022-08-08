@@ -12,27 +12,22 @@ import com.ayo.movies.utils.Event
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
-
 
 abstract class BaseViewModel(
-    coroutineContextProvider: CoroutineContextProvider,
-    val mCompositeDisposable: CompositeDisposable,
-    val mSchedulerProvider : SchedulerProvider
+    private val mCompositeDisposable: CompositeDisposable,
+    private val mSchedulerProvider : SchedulerProvider
 ) :
-    ViewModel(), CoroutineScope {
+    ViewModel() {
 
     private val jobs = mutableListOf<Job>()
-    override val coroutineContext: CoroutineContext = coroutineContextProvider.io
 
     val loadingViewVisible = MutableLiveData<Event<Boolean>>()
     val errorMessage = MutableLiveData<Event<String>>()
 
-    fun showLoading() {loadingViewVisible.postValue(Event(true))}
-    fun hideLoading(){loadingViewVisible.postValue(Event(false))}
-    fun showError(message : String) {errorMessage.postValue(Event(message))}
+    private fun showLoading() {loadingViewVisible.postValue(Event(true))}
+    private fun hideLoading(){loadingViewVisible.postValue(Event(false))}
+    private fun showError(message : String) {errorMessage.postValue(Event(message))}
 
     fun load(job: Job) {
         job.apply {

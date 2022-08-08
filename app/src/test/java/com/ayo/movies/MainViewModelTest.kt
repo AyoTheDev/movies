@@ -53,7 +53,7 @@ class MainViewModelTest {
     @Before
     fun setUp() {
         underTest = MainViewModel(
-            TestContextProvider(),testSchedulerProvider, compositeDisposable, favouriteMoviesUseCase, addMovieToFavouritesUseCase,
+            testSchedulerProvider, compositeDisposable, favouriteMoviesUseCase, addMovieToFavouritesUseCase,
             removeMovieFromFavouritesUseCase, popularMoviesUseCase, moviesUseCase
         )
     }

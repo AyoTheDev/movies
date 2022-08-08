@@ -1,29 +1,23 @@
 package com.ayo.movies.ui.movies.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ayo.api.exceptions.NoNetworkException
 import com.ayo.api.exceptions.ServerException
-import com.ayo.api.interceptors.NetworkResponseInterceptor
 import com.ayo.api.utils.SchedulerProvider
 import com.ayo.domain.model.MovieDomain
 import com.ayo.domain.model.toDomain
 import com.ayo.domain.usecase.*
 import com.ayo.movies.common.BaseViewModel
-import com.ayo.movies.common.CoroutineContextProvider
 import com.ayo.movies.utils.Resource
 import com.ayo.movies.utils.Resource.Success
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    coroutineContextProvider: CoroutineContextProvider,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable,
     private val favouriteMoviesUseCase: FavouriteMoviesUseCase,
@@ -31,7 +25,7 @@ class MainViewModel @Inject constructor(
     private val removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase,
     private val popularMoviesUseCase: PopularMoviesUseCase,
     private val moviesUseCase: MovieUseCase
-) : BaseViewModel(coroutineContextProvider, compositeDisposable, schedulerProvider) {
+) : BaseViewModel(compositeDisposable, schedulerProvider) {
 
     val favouriteMovies: LiveData<Resource<List<MovieDomain>>>
         get() = _favouriteMovies
