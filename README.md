@@ -1,5 +1,7 @@
 # Movie DB
 
+Please note that this project uses java 11 so if your JDK points to 1.8 you'll have to download java 11 and then in your IDE go to: Preferences → Build, Execution, Deployment → Build Tools → Gradle → *Gradle JDK
+
 *This code branches from a guideline project that I built a few years ago and still maintain with best practices to serve as a quick start for any new projects I work on.*
 
 This Android app project was made using Kotlin, it uses the Movie DB API found here: https://developers.themoviedb.org/3 to display a list of popular movies and allows 
