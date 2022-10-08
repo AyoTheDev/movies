@@ -5,6 +5,14 @@ ext {
     targetSdkVersion = 32
     compiledSdkVersion = 32
 
+
+
+
+
+
+
+    
+
     //Application Versions
     versionCode = 1
     versionName = "1.0"
