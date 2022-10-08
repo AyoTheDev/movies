@@ -10,7 +10,7 @@ ext {
 
 
 
-    
+
     compiledSdkVersion = 32
 
 
@@ -36,6 +36,8 @@ ext {
 
     //Application Versions
     versionCode = 1
+
+    
     versionName = "1.0"
     applicationId = "com.ayo.movies"
 
