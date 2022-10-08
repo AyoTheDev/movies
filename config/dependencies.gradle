@@ -2,8 +2,33 @@ ext {
 
     //Android Versions
     minSdkVersion = 26
+
+
+
+    
     targetSdkVersion = 32
     compiledSdkVersion = 32
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Application Versions
     versionCode = 1
